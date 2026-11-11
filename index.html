@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<title>Jaipur — Menu</title>
+<meta name="description" content="Menu digital de Jaipur, restaurant indien &amp; snack bar.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#ffefdc; --ink:#2b1a10; --soft:#6f5a48; --orange:#d9731a; --tab:#cf5f1b; --leaf:#2f8a3a;
+  --sans:'Jost','Helvetica Neue',Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);font-weight:300;color:var(--cream);line-height:1.45;min-height:100vh;
+  background-color:#1d0e07;
+  background-image:
+    repeating-linear-gradient(0deg,rgba(0,0,0,.28) 0 1px,rgba(255,190,130,.03) 1px 2px,transparent 2px 7px),
+    repeating-linear-gradient(0deg,transparent 0 23px,rgba(0,0,0,.25) 23px 24px,transparent 24px 61px),
+    linear-gradient(180deg,#2c1509 0%,#1a0c06 100%);
+  background-attachment:fixed}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+a{color:inherit;text-decoration:none}
+.hidden{display:none!important}
+.wrap{max-width:680px;margin:0 auto;padding:0 16px}
+.flame{display:block;margin:0 auto 10px}
+.btn{display:block;width:100%;padding:16px 18px;border:.8px solid var(--cream);background:rgba(0,0,0,.42);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);color:var(--cream);text-transform:uppercase;
+  letter-spacing:.16em;font-size:1.02rem;font-weight:300;text-align:center;transition:background .2s,border-color .2s}
+.btn:hover,.btn:active{background:var(--tab);border-color:var(--tab)}
+
+/* ---------- ACCUEIL ---------- */
+#bg{position:fixed;inset:0;z-index:-1;background:#000 url("fond.jpg") center top/cover no-repeat}
+#bg::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(0,0,0,.6) 0%,rgba(0,0,0,.08) 36%,rgba(0,0,0,.2) 60%,rgba(0,0,0,.94) 100%)}
+#home{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;padding:42px 20px 22px}
+.logo{display:block;width:min(76%,320px);margin:0 auto 8px;mix-blend-mode:lighten}
+.tag{text-align:center;letter-spacing:.2em;text-transform:uppercase;font-size:.78rem;color:#e8c9a4;text-shadow:0 1px 8px #000}
+.choices{display:grid;gap:12px;margin-top:auto}
+.addr{text-align:center;font-size:.84rem;color:#dcc7ad;margin-top:22px;line-height:1.6}
+.addr b{font-weight:400;color:var(--cream);display:block;letter-spacing:.12em;text-transform:uppercase;font-size:.78rem;margin-bottom:2px}
+.credit{text-align:center;color:#8f7d6a;font-size:.72rem;margin-top:18px;letter-spacing:.05em}
+.credit a{color:#c9a46c}
+.home-review{margin-top:12px}
+
+/* ---------- MENU ---------- */
+.hdr{position:sticky;top:0;z-index:50;background:#000;border-bottom:3px solid var(--orange)}
+.hdr .in{max-width:680px;margin:0 auto;height:58px;padding:0 14px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.back{width:40px;height:40px;display:grid;place-items:center;font-size:1.5rem;font-weight:300}
+.hlogo{height:40px;mix-blend-mode:lighten}
+.sw{padding:9px 14px;border:.8px solid var(--cream);text-transform:uppercase;letter-spacing:.14em;font-size:.78rem;font-weight:400;color:var(--cream);min-width:40px}
+.hero{position:relative;height:200px;background:#000 url("fond.jpg") center 66%/cover no-repeat;display:flex;align-items:flex-end;justify-content:center}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.25),rgba(0,0,0,.15) 40%,rgba(0,0,0,.82))}
+.hero h1{position:relative;z-index:1;font-weight:300;font-size:2.3rem;letter-spacing:.06em;padding-bottom:18px;text-align:center}
+.tabs{position:sticky;top:61px;z-index:40;display:flex;overflow-x:auto;background:var(--cream);scrollbar-width:none;-ms-overflow-style:none;box-shadow:0 2px 10px rgba(0,0,0,.35)}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:none;padding:15px 18px;color:var(--ink);font-size:.95rem;font-weight:400;white-space:nowrap;border-right:1px solid rgba(43,26,16,.1)}
+.tab.active{background:var(--tab);color:#fff}
+.tools{display:flex;gap:10px;margin:22px 0 4px}
+.search{flex:1;min-width:0;padding:13px 14px;border:.8px solid rgba(255,239,220,.5);background:rgba(0,0,0,.35);color:var(--cream);font:inherit;font-size:.95rem}
+.search::placeholder{color:#a8977f}
+.search:focus{outline:none;border-color:var(--orange)}
+.vegbtn{display:flex;align-items:center;gap:7px;padding:0 14px;border:.8px solid rgba(255,239,220,.5);font-size:.82rem;color:var(--cream);white-space:nowrap;background:rgba(0,0,0,.35)}
+.vegbtn.on{background:var(--leaf);border-color:var(--leaf);color:#fff}
+.vegbtn .leaf{border-color:#8fd694}
+.vegbtn.on .leaf{border-color:#fff}
+.vegbtn.on .leaf::after{background:#fff}
+
+section.cat{background:var(--cream);color:var(--ink);margin:22px 0;scroll-margin-top:126px;box-shadow:0 6px 24px rgba(0,0,0,.4)}
+.cat h2{font-size:1.2rem;font-weight:500;padding:18px 18px 4px;letter-spacing:.02em}
+.cat .note{color:var(--soft);font-size:.86rem;padding:0 18px 8px;font-style:italic}
+.sub{margin-top:10px;padding:9px 18px;background:#f2d9bd;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;font-weight:500;color:#7a3a12}
+.item{padding:13px 18px;border-top:1px solid rgba(43,26,16,.1)}
+.cat h2 + .item,.cat .note + .item{border-top:1px solid rgba(43,26,16,.14)}
+.row{display:flex;align-items:baseline;justify-content:space-between;gap:14px}
+.name{font-weight:400;font-size:1rem}
+.price{font-weight:500;white-space:nowrap;font-size:.98rem}
+.price small{font-weight:300;font-size:.68rem;margin-left:3px;color:var(--soft);letter-spacing:.06em}
+.desc{color:var(--soft);font-size:.86rem;margin-top:3px;max-width:88%}
+.leaf{display:inline-grid;place-items:center;width:15px;height:15px;border:1.5px solid var(--leaf);border-radius:3px;margin-left:8px;vertical-align:1px}
+.leaf::after{content:"";width:6px;height:6px;border-radius:50%;background:var(--leaf)}
+.empty{text-align:center;color:#c9b8a2;padding:60px 0}
+
+footer{padding:26px 0 40px;text-align:center}
+footer .addr{margin-top:0;margin-bottom:18px}
+.warn{color:#9d8a76;font-size:.74rem;margin:16px 0 0}
+footer .btn{max-width:320px;margin:0 auto 18px}
+</style>
+</head>
+<body>
+
+<div id="bg"></div>
+
+<!-- ACCUEIL -->
+<main id="home" class="wrap">
+  <img class="logo" src="logo.png" alt="Jaipur — Restaurant indien &amp; snack bar">
+  <p class="tag">Découvrez notre carte</p>
+  <div class="choices">
+    <button class="btn" data-go="plats">Plats</button>
+    <button class="btn" data-go="boissons">Boissons</button>
+    <a class="btn hidden home-review" id="reviewHome" href="#" target="_blank" rel="noopener">★ Laisser un avis</a>
+  </div>
+  <p class="addr"><b>Jaipur — Restaurant indien &amp; Snack bar</b>Avenue Denis Sassou N’Guesso<br>En face de Congo Télécom<br>+242 04 482 11 11</p>
+  <p class="credit">Menu digital par <a href="#" class="creditLink">l’Atelier KPM</a></p>
+</main>
+
+<!-- MENU -->
+<div id="menu" class="hidden">
+  <header class="hdr"><div class="in">
+    <button class="back" id="back" aria-label="Retour">←</button>
+    <img class="hlogo" src="logo.png" alt="Jaipur">
+    <button class="sw" id="sw"></button>
+  </div></header>
+  <div class="hero"><h1 id="menuTitle"></h1></div>
+  <nav class="tabs" id="tabs"></nav>
+  <main class="wrap">
+    <div class="tools">
+      <input class="search" id="search" type="search" placeholder="Rechercher…" autocomplete="off">
+      <button class="vegbtn hidden" id="vegBtn"><span class="leaf"></span>Végétarien</button>
+    </div>
+    <div id="content"></div>
+  </main>
+  <footer class="wrap">
+    <p class="addr"><b>Jaipur — Restaurant indien &amp; Snack bar</b>Avenue Denis Sassou N’Guesso<br>En face de Congo Télécom<br>+242 04 482 11 11</p>
+    <a class="btn hidden" id="reviewFoot" href="#" target="_blank" rel="noopener">★ Laisser un avis</a>
+    <p class="warn hidden" id="warn">L’abus d’alcool est dangereux pour la santé. À consommer avec modération.</p>
+    <p class="credit">Menu digital par <a href="#" class="creditLink">l’Atelier KPM</a></p>
+  </footer>
+</div>
+
+<script>
+/* ======== À PERSONNALISER ======== */
+const CONFIG = {
+  reviewUrl: "",                    // lien Google « Laisser un avis » (QR Avis) — vide = bouton masqué
+  kpmUrl: ""                        // lien vers l'Atelier KPM (facultatif)
+};
+
+/* ======== DONNÉES : [nom, prix FCFA, description, végétarien(1)] ======== */
+const MENU = {
+plats: { title: "Plats", cats: [
+ { id:"salades", name:"Salades", items:[
+  ["Cocktail avocat crevette",6000,"Crevettes, avocat, poivron, concombre et laitue"],
+  ["Salade poisson grillé",6000,"Poisson grillé, laitue, tomate cerise, concombre, câpres, cornichons et olives"],
+  ["Salade grecque",5500,"Tomates, concombre, oignon, olives, poivron, origan, fromage",1],
+  ["Salade Caesar au poulet",5500,"Poulet, laitue, fromage, croûtons"],
+  ["Salade russe",5500,"Poitrine de poulet, concombre, œufs, oignons et pomme de terre"],
+  ["Salade avocat maïs",5500,"Maïs, avocat, poivron, concombre et laitue",1]
+ ]},
+ { id:"burgers", name:"Burgers", items:[
+  ["Royal burger",6500,"Double steak d’agneau et poulet, fromage, œuf, tomate, oignon, frites"],
+  ["Viande burger",5000,"Steak d’agneau, fromage, œuf, tomate, oignon, frites"],
+  ["Poulet croustillant",5000,"Poitrines de poulet, laitue, fromage, tomate, frites"],
+  ["Poulet grillé",4000,"Steak de poulet, laitue, fromage, œuf, tomate, oignon, frites"],
+  ["Végétarien",4500,"Steak végétarien, laitue, fromage, tomate, frites",1]
+ ]},
+ { id:"sandwichs", name:"Sandwichs & Toasts", items:[
+  ["Paneer Makhani sandwich",5500,"Paneer sauce indienne, laitue, fromage, tomate, frites",1],
+  ["Club sandwich",4500,"Poulet, oignon, laitue, fromage, œuf, tomate, frites"],
+  ["Poulet grillé sandwich",4000,"Steak de poulet, oignon, laitue, fromage, tomate, frites"],
+  ["Veg avocat sandwich",4000,"Avocat, laitue, fromage, tomate, frites",1],
+  ["Œuf sandwich",3500,"Œuf, fromage, frites"],
+  ["Crostini poulet / champignon / avocat",4500,"Poulet tikka, avocat ou champignon, fromage"],
+  ["Fromage piment toast",3500,"Piment, ail, fromage",1]
+ ]},
+ { id:"hotdogs", name:"Hotdogs & Wraps", items:[
+  ["Hotdog viande",5000,"Steak d’agneau, laitue, oignon, tomate, fromage"],
+  ["Hotdog poulet frit",4500,"Poulet frit, laitue, oignon, tomate, fromage"],
+  ["Hotdog poulet",4000,"Steak de poulet, laitue, oignon, tomate, fromage"],
+  ["Hotdog végétarien",4000,"Steak végétarien, laitue, oignon, tomate, fromage",1],
+  ["Viande wrap",5500,"Pain tortilla à l’omelette, agneau émincé, poivron, oignon et sauce tomate, servi avec sauce à la menthe"],
+  ["Butter chicken wrap",5500,"Pain tortilla à l’omelette, poulet sauce indienne, poivron, oignon et sauce tomate, servi avec sauce à la menthe"],
+  ["Poulet wrap",4500,"Pain tortilla à l’omelette, poulet frit, poivron, oignon et laitue"],
+  ["Végétarien wrap",4500,"Pain tortilla, concombre, fromage, laitue, tomate, oignon, piment vert et sauce tomate",1]
+ ]},
+ { id:"pizzas", name:"Pizzas", items:[
+  ["Jaipur Pizza Royal",19000,"Crevette, poisson, poulet, poivron, oignon, champignon, fromage"],
+  ["Pizza Mix Godfather",14000,"Crevette, poisson, viande, poulet, poivron, oignon, champignon, fromage"],
+  ["Pizza Poulet Godfather",12000,"4 variétés de poulet, poivron, oignon, fromage"],
+  ["Pizza Spécial",9000,"Crème fraîche, crevette, thon, poivron, oignon, champignon"],
+  ["Pizza Butter Chicken",9000,"Poulet sauce indienne, poivron, oignon, fromage"],
+  ["Pizza Viande",9000,"Viande hachée, poivron, maïs, fromage"],
+  ["Pizza Poulet Tikka",6000,"Poivron rouge et jaune, oignon, sauce tomate, poulet tikka"],
+  ["Pizza Grand Italian",6000,"Sauce tomate, champignons, poulet, poivron, oignon, tomate et fromage"],
+  ["Pizza Végétarienne",6000,"Mélange de légumes frais, fromage et sauce",1],
+  ["Pizza BBQ Poulet",6000,"Poulet succulent à base de sauce barbecue, oignon, poivron, fromage"],
+  ["Pizza Mexicaine",5500,"Crème fraîche, poulet, maïs, poivron, oignon, tomate"],
+  ["Pizza Margherita",5000,"Sauce tomate, fromage, basilic",1]
+ ]},
+ { id:"pates", name:"Pâtes", note:"Au choix : penne, spaghetti ou fusilli", items:[
+  ["Bolognaise",7000,"Pâtes avec boulettes de viande et sauce bolognaise"],
+  ["Alfredo",6000,"Pâtes avec poulet désossé, poivre noir, lait, crème et parmesan"],
+  ["Arrabbiata",6000,"Pâtes au poulet, origan, thym, basilic, sauce tomate et fromage"],
+  ["À la crème",6000,"Pâtes aux poivrons, brocoli, origan, thym, basilic, sauce crème fraîche et fromage",1],
+  ["Pesto",5500,"Pâtes avec végétarien ou poulet, flocons de piment rouge et sauce pesto"],
+  ["Aglio e olio",5000,"Pâtes avec poulet, flocons de piment rouge écrasés et parmesan râpé"]
+ ]},
+ { id:"omelettes", name:"Omelettes", items:[
+  ["Masala omelette",4000],
+  ["Fromage au champignon",4000],
+  ["Omelette au fromage",3500],
+  ["Œuf brouillé",3000]
+ ]},
+ { id:"entrees", name:"Entrées", items:[
+  ["Gambas al ajillo",8500,"Gambas sauce à l’ail, servies avec frites"],
+  ["Gambas grillées",8500,"Gambas grillées, servies avec frites"],
+  ["Brochette de poulet",7500,"Brochette de poulet servie avec sauce"],
+  ["Poulet péri-péri",7000,"Poulet mariné aux épices péri-péri et rôti au four"],
+  ["Poulet croquant",7000,"Poulet mariné à l’ail en poudre et paprika, frit, servi avec sauce piquante à l’ail"],
+  ["Péri-péri doigts de poisson",6500,"Doigts de poisson marinés au sel et au poivre, enrobés de chapelure, frits, sauce tartare"],
+  ["BBQ poulet lollipop",6000,"Ailes de poulet enrobées de farine, frites puis sautées dans une sauce barbecue"],
+  ["Poulet lollipop",5500,"Ailes de poulet marinées au piment, gingembre, ail, poivre et sauce soja, enrobées de pâte, frites, servies avec sauce"]
+ ]},
+ { id:"entrees-veg", name:"Entrées végétariennes", items:[
+  ["Beignets de courgettes",7500,"Courgettes enrobées de pâte et frites, servies avec sauce",1],
+  ["Mozzarella panée",6500,"Fromage pané, servi avec sauce",1],
+  ["Fromage cottage grillé",7000,"Fromage cottage grillé, servi avec sauce au poivron",1],
+  ["Croquettes au fromage de maïs",6000,"Pomme de terre, fromage et maïs, gingembre, pâte d’ail, enrobés de chapelure et frits, servis avec sauce",1],
+  ["Duplex de champignons",6500,"Champignons farcis, panés et frits, servis avec une sauce",1],
+  ["Paneer chilli",6000,"Fromage cottage frit sauté au gingembre et à l’ail haché, sauce soja, sauce pimentée",1],
+  ["Veg Manchurian",5500,"Boulettes de légumes à la sauce manchurian",1]
+ ]},
+ { id:"plats", name:"Plats", items:[
+  ["Mix non-veg sizzler",14000,"Poulet, agneau, poisson et crevettes sauce sizzler, servis avec riz et légumes sautés"],
+  ["Grill lobster",12500,"Langouste grillée sauce chili coriandre, servie avec riz aux légumes"],
+  ["Sizzler",12000,"Au choix : crevette, poisson, agneau ou poulet, sauce sizzler, riz et légumes sautés"],
+  ["Agneau rôti",9500,"Agneau rôti à la sauce au vin rouge, servi avec riz"],
+  ["Agneau bourguignon",9500,"Morceaux d’agneau sauce bourguignon"],
+  ["Boulettes de viande",8500,"Boulettes de viande sauce bolognaise, servies avec purée de pommes de terre"],
+  ["Poisson caper à la meunière",8500,"Poisson grillé sauce meunière, servi avec riz"],
+  ["Poisson grillé",8500,"Poisson grillé au beurre citronné, servi avec légumes sautés"],
+  ["Poulet à la moutarde",8000,"Poulet braisé sauce moutarde, servi avec riz"],
+  ["Poulet cajun",8000,"Poulet mariné à l’ail, épices cajun, sel, poivre et paprika, cuit à la crème, servi avec riz"]
+ ]},
+ { id:"sauces", name:"Sauces", items:[
+  ["Sauce champignon",4000],
+  ["Poivre crème fraîche",2500],
+  ["Sauce tomate",2500]
+ ]}
+]},
+
+boissons: { title: "Boissons", cats: [
+ { id:"apero", name:"Apéros", items:[
+  ["Martini",3000],["Apérol",4000],["Ricard",4000],["Pastis",3500],["Campari",4000]
+ ]},
+ { id:"bieres", name:"Bières", groups:[
+  { sub:"Locales", items:[["Stark",2000],["33 Export",2000],["Ngok",2000],["Beaufort",2500]] },
+  { sub:"Importées", items:[["Corona",3000],["Hoegaarden",3000],["Savana",2500],["1664",2000],["Hollandia Premium",2500],["1664 Pression",2500]] }
+ ]},
+ { id:"softs", name:"Boissons rafraîchissantes", items:[
+  ["Soda",1000],["Fanta",1000],["Sprite",1000],["Tonic",1500],["Coca",1500],["Orangina",2000],["Red Bull",2500],["Bavaria",2500],
+  ["GM L’eau",2000],["PM L’eau",1000],["Perrier",1500],["Lait sirop",2500],
+  ["Jus de fruits",3500,"Orange, pastèque"],["Verre de jus de fruit",1500]
+ ]},
+ { id:"chaud", name:"Boissons stimulantes", items:[
+  ["Café Nespresso",1500],["Thé vert",2000],["Thé Masala (Chai)",3000],["Café au lait indien",3500],["Thé gingembre congolais",5000]
+ ]},
+ { id:"cocktails", name:"Cocktails classiques", items:[
+  ["Long Island Ice Tea",8000,"Vodka, rhum, gin, tequila, triple sec, coca, citron"],
+  ["Mojito Classic",6000,"Rhum blanc, citron, menthe, sirop de mojito, soda"],
+  ["Cosmopolitan",6000,"Vodka, Cointreau, jus de citron, jus de cranberry"],
+  ["Daiquiri",5500,"Rhum blanc, citron, sirop de sucre"],
+  ["Old Fashioned",6000,"Bourbon whisky, sirop de sucre, Angostura bitter"],
+  ["Mai Tai",6000,"Rhum ambré, rhum blanc, citron, Cointreau, orgeat"],
+  ["Margarita",5500,"Tequila, Cointreau, citron"],
+  ["Piña Colada",6000,"Rhum blanc, Malibu, jus d’ananas, crème de coco"],
+  ["Negroni",5500,"Campari, vermouth rouge, gin"],
+  ["Sex on the Beach",6000,"Vodka, liqueur de pêche, jus d’orange, jus de cranberry"],
+  ["Kir Royal",12000,"Champagne et crème de cassis"]
+ ]},
+ { id:"signature", name:"Cocktails signature", items:[
+  ["Chalo Dilli",9000,"Rhum, vodka, gin, Cointreau, jus de pastèque et sirop de pêche"],
+  ["Miami Ice Tea",8500,"Rhum, vodka, gin, aigre-doux, jus de cranberry et sirop de pêche"],
+  ["Tubotail",8000,"Vodka, rhum, tequila, triple sec, jus d’ananas et d’orange, bière"],
+  ["Tiramisu Tales",7000,"Rhum noir, Baileys, Kahlúa, vodka, noisette"],
+  ["Mr Crazy et Miss Mad",6500,"Vodka, gin, rhum blanc, tequila, liqueur de pêche et vin rouge"],
+  ["Sweet & Cold",6500,"Crème de menthe, Baileys, vodka, Kahlúa"],
+  ["Good Boy & Bad Girl",6000,"Kiwi, liqueur de banane et fraise, mélange de bar, rhum et Sprite"],
+  ["Regardez-Moi",7500,"Tequila, pastèque, menthe, sirop de pastèque et jus de cranberry"],
+  ["En Route",7000,"Rhum blanc, romarin, jus d’ananas"],
+  ["Africana",7000,"Vodka, pommes fraîches, jus de cranberry, sirop de pêche"],
+  ["Jimmy Jimmy",10000,"Champagne, rhum blanc, citron, purée de fraise"]
+ ]},
+ { id:"shooters", name:"Shooters", items:[
+  ["Tequila shot (x3)",5500],
+  ["Jäger Bomb",5000,"Jägermeister, Red Bull"],
+  ["B 52",4000,"Kahlúa, Baileys, Cointreau"]
+ ]},
+ { id:"mocktails", name:"Mocktails", note:"Sans alcool", items:[
+  ["Jaipur Signature",5500,"Citron, menthe, orange & pomme, sirop de fraise et soda"],
+  ["Passion Mojito",5000,"Citron, menthe, passion, mélange de bar, soda"],
+  ["Virgin Colada",5000,"Ananas, lait de coco, coco râpée, crème fraîche"],
+  ["Blue Valium",5000,"Jus d’ananas, curaçao bleu, mélange de bar, lait de coco"],
+  ["Pea-Cock Twist",5000,"Fraise, jus d’ananas, lait de coco, menthe"],
+  ["Lemon Peach Ice Tea",4500,"Thé, sirop de sucre, sirop de pêche"],
+  ["Bora Bora",5000,"Ananas, passion, citron, grenadine"],
+  ["Passionate",5000,"Sirop de passion, jus de pomme et cranberry, pomme fraîche"],
+  ["Coco Mangue",5000,"Purée de mangue, crème fraîche, sirop de coco, jus de mangue"],
+  ["Baby Bellini",4000,"Jus d’orange, sirop de pêche, mélange de bar, soda"],
+  ["Virgin Mojito",4000,"Citron, menthe, mélange de bar, soda"]
+ ]},
+ { id:"shakes", name:"Shakes", items:[
+  ["Avocat shake",5500],["Macaron shake",5000],["Nutella banana shake",5000],["Chocolate shake",4500],["Banana shake",4500],["Oreo vanilla",4000]
+ ]},
+ { id:"smoothies", name:"Smoothies & Lassis", items:[
+  ["Mix macaron smoothie",5500],["Passion fruit",4500],["Berry smoothie",4500],["Almond peanut butter",4000],["Strawberry banana",4000],
+  ["Strawberry lassi",4000],["Butter milk (Chass)",3500],["Mango lassi",3500],["Sweet lassi",2500]
+ ]},
+ { id:"malt", name:"Single Malt Whisky", items:[
+  ["Glenfiddich 12 ans",6000],["The Glenlivet Reserve",6000],["Glen Elgin 12 ans",6000],["Glen Moray 12 ans",6000],
+  ["Caol Ila 12 ans",6500],["Glenmorangie 10 ans",6500],["Glen Moray 16 ans",7000],["The Glenlivet 12 ans",8000],
+  ["Laphroaig 10 ans",8500],["Glenfiddich 15 ans",9000],["Talisker",9000],["The Balvenie 12 ans",9000],
+  ["The Glenlivet 18 ans",10000],["Glenfiddich 18 ans",11000],["Oban 14 ans",11000],["Lagavulin 16 ans",14000]
+ ]},
+ { id:"scotch", name:"Scotch Whisky", items:[
+  ["Jameson",4000],["Grant’s",3500],["Red Label",4000],["Ballantine’s",4000],["J&B Rare",3500],["Jim Beam",5000],["Dimple",6000],
+  ["Ballantine’s 12 ans",6000],["Jack Daniel’s No. 7",5000],["Monkey Shoulder",6000],["Black Label",5000],["Gentleman Jack",5000],
+  ["Chivas Regal 12 ans",6000],["Double Black",6000],["Chivas 15 ans",8500],["JW Gold Label",9000],["Jack Daniel’s Single Barrel",8000],
+  ["Chivas 18 ans",11500],["Blue Label",16500],["Royal Salute 21 ans",18000]
+ ]},
+ { id:"cognac", name:"Cognac", items:[
+  ["Armagnac",5000],["Courcel",5000],["Martell VS",5000],["Rémy Martin VSOP",6000],["Camus VSOP",6000],["Martell VSOP",7500],
+  ["Hennessy VSOP",8000],["Camus XO",20000],["Rémy Martin XO",20000],["Louis XIII",200000]
+ ]},
+ { id:"digestifs", name:"Digestifs", items:[
+  ["Jägermeister",3000],["Kahlúa",3000],["Baileys",4500],["Amarula",4000],["Sambuca",4000],["Malibu",4000],["Get 27",4000],["Get 31",4000],
+  ["Jack Daniel’s Fire",4500],["Jack Daniel’s Honey",4500],["Cointreau",4500],["Suze",5000]
+ ]},
+ { id:"spiritueux", name:"Vodka · Gin · Tequila · Rhum", groups:[
+  { sub:"Vodka", items:[["Absolut Vodka",3500],["Absolut Elyx",5000],["Ciroc",6000],["Grey Goose",6000],["Belvedere",7000]] },
+  { sub:"Gin", items:[["Gordon’s",3000],["Beefeater",3500],["Bombay",5000],["Hendrick’s",6000],["Monkey 47",7500]] },
+  { sub:"Tequila", items:[["Don Julio",6500],["Camino",4000]] },
+  { sub:"Rhum", items:[["Captain Morgan",3500],["Saint James",4000],["Bacardi Carta Blanca",4000],["Bacardi Carta Negra",4000],["Bacardi Carta Oro",5000]] }
+ ]},
+ { id:"vins", name:"Vins", note:"Verre de vin 15 cl (rouge, blanc, rosé) : 5 000 FCFA", groups:[
+  { sub:"Rouges", items:[
+   ["La Fiole Côtes du Rhône",25000],["Nederburg",25000],["Castel Bordeaux",25000],["Mouton Cadet Bordeaux",27000],
+   ["Mouton Cadet Saint-Émilion",40000],["Château d’Arcins",35000],["Château Malbec",40000],["Sancerre rouge",38000],
+   ["Mouton Cadet Graves",40000],["Château Ferrande",40000],["Légende Saint-Émilion",40000],["Châteauneuf-du-Pape",50000],
+   ["La Croix Montlabert Saint-Émilion",65000]] },
+  { sub:"Blancs", items:[
+   ["La Fiole Côtes du Rhône",22000],["Calvet blanc",27000],["Mouton Cadet",27000],["Sancerre blanc",40000],["Chablis B&G",45000],["Pouilly-Fuissé",45000]] },
+  { sub:"Rosés", items:[
+   ["Réserve Naturelle",18000],["Mouton Cadet",25000],["Côtes de Provence",25000],["Rosé Gris Blanc",26000]] }
+ ]},
+ { id:"champagnes", name:"Champagnes", note:"Champagne à la coupe : 10 000 FCFA", items:[
+  ["Trouillard Elixium",60000],["G.H. Mumm Cordon Rouge Brut",65000],["Laurent-Perrier D.S.",65000],["Laurent-Perrier Brut",65000],
+  ["Moët & Chandon Brut",90000],["Moët & Chandon Impérial Ice",100000],["Ruinart Brut",110000],["Ruinart Blanc de Blancs",145000],["Dom Pérignon",300000]
+ ]},
+ { id:"bouteilles", name:"Bouteilles 75 cl", items:[
+  ["Glenfiddich 12 ans",55000],["The Glenlivet Reserve",50000],["The Glenlivet 12 ans",65000],["JW Double Black",48000],["Black Label",45000],
+  ["Chivas Regal 12 ans",50000],["Jack Daniel’s No. 7",40000],["Red Label",25000],["Jameson Irish",28000],["Absolut Vodka",25000],
+  ["Gin Gordon’s",25000],["Gin Beefeater",25000],["J&B",25000],["Amarula",28000],["Ballantine’s Finest",30000],["Baileys",30000]
+ ]}
+]}
+};
+
+/* ======== MOTEUR ======== */
+const $ = s => document.querySelector(s);
+const norm = s => (s||"").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"");
+const fmt = n => String(n).replace(/\B(?=(\d{3})+(?!\d))/g," ");
+const FLAME = '<svg class="flame" viewBox="0 0 24 32" width="20" height="27" fill="none" stroke="#d9731a" stroke-width="1.4" stroke-linejoin="round"><path d="M12 2c1 5 7 8 7 15a7 7 0 0 1-14 0c0-3 2-5 3-7 .5 2 1.5 3 2.5 3.5C10.5 10 11 6 12 2z"/></svg>';
+let current = null, vegOnly = false, query = "", spy = null;
+
+function setupLinks(){
+  if (CONFIG.reviewUrl){
+    ["#reviewHome","#reviewFoot"].forEach(s => { $(s).href = CONFIG.reviewUrl; $(s).classList.remove("hidden"); });
+  }
+  document.querySelectorAll(".creditLink").forEach(a => {
+    if (CONFIG.kpmUrl) a.href = CONFIG.kpmUrl; else a.addEventListener("click", e => e.preventDefault());
+  });
+}
+
+function itemHTML(it){
+  const [name, price, desc, veg] = it;
+  return `<div class="item"><div class="row"><span class="name">${name}${veg?'<span class="leaf" title="Végétarien"></span>':''}</span><span class="price">${fmt(price)}<small>FCFA</small></span></div>${desc?`<p class="desc">${desc}</p>`:""}</div>`;
+}
+
+function render(){
+  const data = MENU[current];
+  const q = norm(query.trim());
+  const match = it => (!vegOnly || it[3]) && (!q || norm(it[0]).includes(q) || norm(it[2]).includes(q));
+  let html = "", tabs = "";
+  data.cats.forEach(cat => {
+    let body = "";
+    if (cat.groups){
+      cat.groups.forEach(g => {
+        const its = g.items.filter(match);
+        if (its.length) body += `<h3 class="sub">${g.sub}</h3>` + its.map(itemHTML).join("");
+      });
+    } else {
+      body = cat.items.filter(match).map(itemHTML).join("");
+    }
+    if (!body) return;
+    tabs += `<button class="tab" data-target="${cat.id}">${cat.name}</button>`;
+    html += `<section class="cat" id="cat-${cat.id}"><h2>${cat.name}</h2>${cat.note&&!q?`<p class="note">${cat.note}</p>`:""}${body}</section>`;
+  });
+  $("#content").innerHTML = html || `<p class="empty">Aucun résultat.</p>`;
+  $("#tabs").innerHTML = tabs;
+  $("#tabs").classList.toggle("hidden", !tabs);
+  observe();
+}
+
+function observe(){
+  if (spy) spy.disconnect();
+  spy = new IntersectionObserver(es => {
+    es.forEach(e => {
+      if (e.isIntersecting){
+        const id = e.target.id.replace("cat-","");
+        document.querySelectorAll(".tab").forEach(c => {
+          const on = c.dataset.target === id;
+          c.classList.toggle("active", on);
+          if (on){
+            const box = $("#tabs");
+            box.scrollTo({left: c.offsetLeft - box.clientWidth/2 + c.clientWidth/2, behavior:"smooth"});
+          }
+        });
+      }
+    });
+  }, {rootMargin:"-130px 0px -70% 0px"});
+  document.querySelectorAll("section.cat").forEach(s => spy.observe(s));
+}
+
+function open(key, push=true){
+  current = key; vegOnly = false; query = "";
+  $("#search").value = "";
+  $("#vegBtn").classList.remove("on");
+  $("#vegBtn").classList.toggle("hidden", key !== "plats");
+  $("#warn").classList.toggle("hidden", key !== "boissons");
+  $("#menuTitle").innerHTML = FLAME + MENU[key].title;
+  $("#sw").textContent = key === "plats" ? "Boissons" : "Plats";
+  $("#home").classList.add("hidden");
+  $("#bg").classList.add("hidden");
+  $("#menu").classList.remove("hidden");
+  window.scrollTo({top:0, behavior:"instant"});
+  render();
+  if (push) history.pushState({key}, "", "#" + key);
+}
+function home(push=true){
+  $("#menu").classList.add("hidden");
+  $("#home").classList.remove("hidden");
+  $("#bg").classList.remove("hidden");
+  window.scrollTo({top:0, behavior:"instant"});
+  if (push) history.pushState({}, "", location.pathname);
+}
+
+document.querySelectorAll("[data-go]").forEach(b => b.addEventListener("click", () => open(b.dataset.go)));
+$("#back").addEventListener("click", () => home());
+$("#sw").addEventListener("click", () => open(current === "plats" ? "boissons" : "plats"));
+$("#search").addEventListener("input", e => { query = e.target.value; render(); });
+$("#vegBtn").addEventListener("click", e => { vegOnly = !vegOnly; e.currentTarget.classList.toggle("on", vegOnly); render(); });
+$("#tabs").addEventListener("click", e => {
+  const c = e.target.closest(".tab"); if (!c) return;
+  document.getElementById("cat-" + c.dataset.target).scrollIntoView({behavior:"smooth", block:"start"});
+});
+window.addEventListener("popstate", () => {
+  const h = location.hash.slice(1);
+  if (MENU[h]) open(h, false); else home(false);
+});
+
+setupLinks();
+const h0 = location.hash.slice(1);
+if (MENU[h0]) open(h0, false);
+</script>
+</body>
+</html>
