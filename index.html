@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#000000">
 <title>Jaipur — Restaurant indien &amp; Snack bar</title>
-<meta name="description" content="Jaipur, restaurant indien &amp; snack bar : pizzas, burgers, wraps, plats sizzler, entrées végétariennes, cocktails et lassis. Avenue Denis Sassou N'Guesso, en face de Congo Télécom.">
+<meta name="description" content="Jaipur, restaurant indien &amp; snack bar : pizzas, burgers, wraps, plats sizzler, entrées végétariennes, cocktails et lassis. Avenue Denis Sassou N'Guesso, en face de Congo Télécom, Brazzaville.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
@@ -80,8 +80,37 @@ section{padding:70px 0}
 .card p,.card li{font-size:1rem;font-weight:400}
 .hours{list-style:none}
 .hours li{display:flex;justify-content:space-between;gap:14px;padding:4px 0}
-.map{display:block;width:100%;height:300px;border:0;filter:saturate(.85)}
+.mapbox{position:relative;height:340px;background:#e9e3da}
+.map{position:absolute;inset:0;width:100%;height:100%;border:0}
+.mapopen{position:absolute;right:10px;bottom:10px;z-index:2;background:#000;color:var(--cream);padding:9px 14px;font-size:.78rem;letter-spacing:.06em;box-shadow:0 2px 10px rgba(0,0,0,.4)}
 .actions{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:26px}
+
+
+.meta{margin-top:10px;font-size:.84rem;color:#f0dcc2;text-shadow:0 1px 8px #000;letter-spacing:.04em}
+.meta .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;background:#6fbf73;vertical-align:1px}
+.meta .dot.off{background:#c0563a}
+.stars{background:linear-gradient(90deg,var(--orange) var(--p),rgba(255,239,220,.25) var(--p));-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:.12em}
+.score{text-align:center;margin-top:30px}
+.score .big{font-size:4.4rem;font-weight:300;line-height:1}
+.score .big small{font-size:1.3rem;color:#cdb79c}
+.score .stars{display:inline-block;font-size:1.7rem;margin:6px 0 2px;letter-spacing:.1em;padding-right:0}
+.score .starsrow{display:block;line-height:1.2}
+.score p{color:#e2cdb2}
+.hours li.today{font-weight:500;color:#7a3a12}
+.hours li.closed span:last-child{color:#a1452b}
+
+
+.gal{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:34px}
+.gal figure{position:relative;overflow:hidden;cursor:zoom-in;background:#000}
+.gal figure:first-child{grid-column:1/-1}
+.gal img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.gal figure:hover img{transform:scale(1.04)}
+.gal figure:first-child img{aspect-ratio:4/3}
+.gal figure:not(:first-child) img{aspect-ratio:1/1}
+.gal figcaption{position:absolute;left:0;right:0;bottom:0;padding:26px 14px 11px;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;background:linear-gradient(180deg,transparent,rgba(0,0,0,.78))}
+@media(min-width:620px){.gal{grid-template-columns:1.4fr 1fr 1fr}.gal figure:first-child{grid-column:auto}.gal figure img,.gal figure:first-child img,.gal figure:not(:first-child) img{aspect-ratio:3/4}}
+#lb{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.92);display:flex;align-items:center;justify-content:center;padding:18px;cursor:zoom-out}
+#lb img{max-width:100%;max-height:100%;object-fit:contain}
 
 footer{padding:46px 0 40px;text-align:center;border-top:1px solid rgba(255,239,220,.12)}
 footer .logo2{height:54px;mix-blend-mode:lighten;margin-bottom:12px}
@@ -91,6 +120,11 @@ footer .logo2{height:54px;mix-blend-mode:lighten;margin-bottom:12px}
 .credit{margin-top:18px;color:#8f7d6a;font-size:.72rem;letter-spacing:.05em}
 .credit a{color:#c9a46c}
 </style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Restaurant","name":"Jaipur — Restaurant indien & Snack bar","servesCuisine":"Indienne","telephone":"+242044821111",
+"address":{"@type":"PostalAddress","streetAddress":"Avenue Denis Sassou N'Guesso, en face de Congo Télécom","addressLocality":"Brazzaville","addressCountry":"CG"},
+"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"08:00","closes":"23:00"}]}
+</script>
 </head>
 <body>
 
@@ -108,13 +142,14 @@ footer .logo2{height:54px;mix-blend-mode:lighten;margin-bottom:12px}
   <div>
     <img class="logo" src="logo.png" alt="Jaipur — Restaurant indien &amp; snack bar">
     <p class="tag">Saveurs indiennes &amp; snack bar</p>
+    <p class="meta" id="heroMeta"></p>
   </div>
   <div>
     <div class="cta">
       <a class="btn solid" href="menu.html">Voir le menu</a>
       <a class="btn" id="heroMap" href="#" target="_blank" rel="noopener">Itinéraire</a>
     </div>
-    <p class="addr">Avenue Denis Sassou N’Guesso<br>En face de Congo Télécom</p>
+    <p class="addr">Avenue Denis Sassou N’Guesso<br>En face de Congo Télécom, Brazzaville</p>
   </div>
 </div>
 
@@ -124,6 +159,29 @@ footer .logo2{height:54px;mix-blend-mode:lighten;margin-bottom:12px}
     <svg class="flame" viewBox="0 0 24 32" width="22" height="30" fill="none" stroke="#d9731a" stroke-width="1.4" stroke-linejoin="round"><path d="M12 2c1 5 7 8 7 15a7 7 0 0 1-14 0c0-3 2-5 3-7 .5 2 1.5 3 2.5 3.5C10.5 10 11 6 12 2z"/></svg>
     <h2>Une table indienne, du snack aux plats sizzler</h2>
     <p class="lead">Chez Jaipur, la cuisine indienne se partage à toute heure : wraps et sandwichs au butter chicken, pizzas, burgers, entrées végétariennes, plats sizzler fumants, et une vraie carte de cocktails, lassis et thés.</p>
+  </div>
+</section>
+<div class="sep"></div>
+
+<!-- HISTOIRE -->
+<section id="histoire">
+  <div class="wrap">
+    <h2>Notre histoire</h2>
+    <p class="lead">Jaipur est né d'une envie simple : faire découvrir à Brazzaville la générosité de la cuisine indienne, de ses currys mijotés aux plats servis grésillants sur la plaque. Ici, les épices sont dosées avec soin et chaque recette est préparée minute pour rester fidèle aux saveurs d'origine.</p>
+    <p class="lead">Qu'on vienne pour un snack entre amis, un déjeuner d'affaires ou une soirée autour d'un cocktail, la table reste la même : chaleureuse, conviviale et toujours ouverte jusqu'à tard.</p>
+  </div>
+</section>
+<div class="sep"></div>
+
+<!-- GALERIE -->
+<section id="galerie">
+  <div class="wrap">
+    <h2>Le restaurant en images</h2>
+    <div class="gal">
+      <figure><img src="biryani.jpg" alt="Plat indien servi dans un kadai doré, avec raïta et sauce" loading="lazy"><figcaption>Nos plats</figcaption></figure>
+      <figure><img src="facade.jpg" alt="Façade du restaurant Jaipur" loading="lazy" style="object-position:15% 50%"><figcaption>Le restaurant</figcaption></figure>
+      <figure><img src="cuisine.jpg" alt="Le chef dresse un plat avec ses accompagnements" loading="lazy" style="object-position:62% 50%"><figcaption>En cuisine</figcaption></figure>
+    </div>
   </div>
 </section>
 <div class="sep"></div>
@@ -149,15 +207,32 @@ footer .logo2{height:54px;mix-blend-mode:lighten;margin-bottom:12px}
 </section>
 <div class="sep"></div>
 
+<!-- AVIS -->
+<section id="avis">
+  <div class="wrap">
+    <h2>Ils nous recommandent</h2>
+    <div class="score">
+      <div class="big"><span id="ratingNum">4,2</span><small>/5</small></div>
+      <div class="starsrow"><span class="stars" id="ratingStars" style="--p:84%">★★★★★</span></div>
+      <p id="ratingCount">Note Google</p>
+    </div>
+    <div class="actions">
+      <a class="btn" id="seeReviews" href="#" target="_blank" rel="noopener">Voir les avis sur Google</a>
+      <a class="btn solid hidden" id="reviewBtn2" href="#" target="_blank" rel="noopener">★ Laisser un avis</a>
+    </div>
+  </div>
+</section>
+<div class="sep"></div>
+
 <!-- INFOS PRATIQUES -->
 <section id="infos">
   <div class="wrap">
     <h2>Nous trouver</h2>
     <div class="card">
-      <iframe class="map" id="map" title="Carte Jaipur" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <div class="mapbox"><iframe class="map" id="map" title="Carte Google Maps — Jaipur" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe><a class="mapopen" id="mapOpen" href="#" target="_blank" rel="noopener">Ouvrir dans Google Maps ↗</a></div>
       <div class="info">
         <h3>Adresse</h3>
-        <p>Jaipur — Restaurant indien &amp; Snack bar<br>Avenue Denis Sassou N’Guesso<br>En face de Congo Télécom</p>
+        <p>Jaipur — Restaurant indien &amp; Snack bar<br>Avenue Denis Sassou N’Guesso<br>En face de Congo Télécom, Brazzaville</p>
       </div>
       <div class="info">
         <h3>Téléphone</h3>
@@ -179,42 +254,77 @@ footer .logo2{height:54px;mix-blend-mode:lighten;margin-bottom:12px}
 <footer>
   <div class="wrap">
     <img class="logo2" src="logo.png" alt="Jaipur">
-    <p class="small">Restaurant indien &amp; Snack bar<br>Avenue Denis Sassou N’Guesso · En face de Congo Télécom</p>
+    <p class="small">Restaurant indien &amp; Snack bar<br>Avenue Denis Sassou N’Guesso · En face de Congo Télécom, Brazzaville</p>
     <div class="social hidden" id="social"></div>
     <p class="credit">Site par <a href="#" class="creditLink">l’Atelier KPM</a></p>
   </div>
 </footer>
+<div id="lb" class="hidden"><img alt=""></div>
 
 <script>
 /* ======== À PERSONNALISER ======== */
 const SITE = {
-  mapsQuery: "Jaipur Restaurant Indien Avenue Denis Sassou N'Guesso Congo Telecom Brazzaville", // recherche Google Maps (à affiner avec la fiche du resto)
-  mapsLink:  "",   // lien direct de la fiche Google Maps (facultatif, prioritaire sur mapsQuery)
+  mapsQuery: "Jaipur Restaurant Brazzaville",   // trouve la fiche du restaurant avec son épingle (vérifié)
+  mapsLink:  "",   // lien long de la fiche Google Maps (google.com/maps/place/...) : prioritaire sur mapsQuery
   reviewUrl: "",   // lien Google « Laisser un avis » (vide = bouton masqué)
-  hours: [         // vide = bloc Horaires masqué. Exemple : ["Lundi – Dimanche", "10h – 23h"]
+  rating: { score: "4,2", pct: 84 },
+  hours: [         // null = fermé
+    { d:"Lundi",    o:null },
+    { d:"Mardi",    o:["08:00","23:00"] },
+    { d:"Mercredi", o:["08:00","23:00"] },
+    { d:"Jeudi",    o:["08:00","23:00"] },
+    { d:"Vendredi", o:["08:00","23:00"] },
+    { d:"Samedi",   o:["08:00","23:00"] },
+    { d:"Dimanche", o:["08:00","23:00"] }
   ],
-  social: {        // vide = liens masqués
-    instagram: "", facebook: "", whatsapp: "", tiktok: ""
-  },
+  social: { instagram:"https://www.instagram.com/jaipurrestaurantcongo/", facebook:"https://www.facebook.com/Jaipurrestaurantcongo/", whatsapp:"", tiktok:"https://www.tiktok.com/@jaipur.central.bar" },   // vide = masqué
   kpmUrl: ""
 };
 
+const $ = s => document.querySelector(s);
 const q = encodeURIComponent(SITE.mapsQuery);
 const dir = SITE.mapsLink || ("https://www.google.com/maps/search/?api=1&query=" + q);
-["#heroMap","#dirBtn"].forEach(s => document.querySelector(s).href = dir);
-document.getElementById("map").src = "https://www.google.com/maps?q=" + q + "&output=embed";
+["#heroMap","#dirBtn","#seeReviews","#mapOpen"].forEach(s => $(s).href = dir);
+$("#map").src = "https://maps.google.com/maps?q=" + q + "&hl=fr&z=17&output=embed";
 
-if (SITE.reviewUrl){ const r = document.getElementById("reviewBtn"); r.href = SITE.reviewUrl; r.classList.remove("hidden"); }
-if (SITE.hours.length){
-  document.getElementById("hours").innerHTML = SITE.hours.map(h => `<li><span>${h[0]}</span><span>${h[1]}</span></li>`).join("");
-  document.getElementById("hoursBox").classList.remove("hidden");
+if (SITE.reviewUrl) ["#reviewBtn","#reviewBtn2"].forEach(s => { $(s).href = SITE.reviewUrl; $(s).classList.remove("hidden"); });
+
+/* note */
+$("#ratingNum").textContent = SITE.rating.score;
+$("#ratingStars").style.setProperty("--p", SITE.rating.pct + "%");
+
+/* heure à Brazzaville */
+const DAYS = ["dimanche","lundi","mardi","mercredi","jeudi","vendredi","samedi"];
+function nowBzv(){
+  const f = new Intl.DateTimeFormat("fr-FR",{timeZone:"Africa/Brazzaville",weekday:"long",hour:"2-digit",minute:"2-digit",hour12:false});
+  const o = Object.fromEntries(f.formatToParts(new Date()).map(p => [p.type,p.value]));
+  return { day: o.weekday.toLowerCase(), min: (+o.hour % 24) * 60 + (+o.minute) };
 }
+const toMin = t => { const [h,m] = t.split(":"); return +h*60 + +m; };
+const label = d => d.o ? d.o[0].replace(":","h") + " – " + d.o[1].replace(":","h") : "Fermé";
+const now = nowBzv();
+const today = SITE.hours.find(d => d.d.toLowerCase() === now.day);
+const isOpen = today && today.o && now.min >= toMin(today.o[0]) && now.min < toMin(today.o[1]);
+
+$("#hours").innerHTML = SITE.hours.map(d =>
+  `<li class="${d.d.toLowerCase()===now.day?"today":""} ${d.o?"":"closed"}"><span>${d.d}</span><span>${label(d)}</span></li>`).join("");
+$("#hoursBox").classList.remove("hidden");
+
+let status = isOpen ? `<span class="dot"></span>Ouvert · jusqu’à ${today.o[1].replace(":","h")}` : `<span class="dot off"></span>Fermé actuellement`;
+$("#heroMeta").innerHTML = `★ ${SITE.rating.score} sur Google &nbsp;·&nbsp; ${status}`;
+
+/* galerie : agrandir au toucher */
+document.querySelectorAll(".gal figure").forEach(f => f.addEventListener("click", () => {
+  $("#lb img").src = f.querySelector("img").src; $("#lb").classList.remove("hidden");
+}));
+$("#lb").addEventListener("click", () => $("#lb").classList.add("hidden"));
+
+/* réseaux */
 const labels = {instagram:"Instagram", facebook:"Facebook", whatsapp:"WhatsApp", tiktok:"TikTok"};
 const links = Object.entries(SITE.social).filter(([,v]) => v);
 if (links.length){
-  const box = document.getElementById("social");
-  box.innerHTML = links.map(([k,v]) => `<a href="${v}" target="_blank" rel="noopener">${labels[k]}</a>`).join("");
-  box.classList.remove("hidden");
+  $("#social").innerHTML = links.map(([k,v]) => `<a href="${v}" target="_blank" rel="noopener">${labels[k]}</a>`).join("");
+  $("#social").classList.remove("hidden");
 }
 document.querySelectorAll(".creditLink").forEach(a => { if (SITE.kpmUrl) a.href = SITE.kpmUrl; else a.addEventListener("click", e => e.preventDefault()); });
 </script>
