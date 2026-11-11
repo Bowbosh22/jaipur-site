@@ -59,6 +59,41 @@ h2{font-weight:300;font-size:1.9rem;line-height:1.25;letter-spacing:.02em;text-a
 .svc p{font-size:.95rem;color:#e2cdb2;margin:10px 0 18px;flex:1}
 .svc .btn{padding:13px 18px;font-size:.84rem}
 
+/* ===== mise en page pleine largeur ===== */
+.wrap.wide{max-width:1240px}
+.eyebrow{display:block;text-transform:uppercase;letter-spacing:.24em;font-size:.74rem;color:var(--orange);margin-bottom:14px}
+section.split{padding:0}
+.split{display:grid;grid-template-columns:1fr 1fr;min-height:min(78vh,640px)}
+.split .pic{position:relative;overflow:hidden;cursor:zoom-in;background:#000;min-height:300px}
+.split .pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .8s}
+.split .pic:hover img{transform:scale(1.04)}
+.split .txt{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:clamp(34px,6vw,100px);background:linear-gradient(180deg,rgba(0,0,0,.28),rgba(0,0,0,.42))}
+.split .txt>*{max-width:520px}
+.split .txt h2{text-align:left;font-size:clamp(1.9rem,3.2vw,2.8rem)}
+.split .txt p{color:#e8d3b8;font-size:1.06rem;margin-top:16px}
+.split .txt .actions{justify-content:flex-start;margin-top:28px}
+.split.rev .pic{order:2}
+.split .facts{list-style:none;margin-top:18px;color:#f0dcc2}
+.split .facts li{padding:5px 0;border-top:1px solid rgba(255,239,220,.14)}
+@media(max-width:860px){
+  .split{grid-template-columns:1fr;min-height:0}
+  .split .pic,.split.rev .pic{order:0;min-height:0;aspect-ratio:4/3}
+  .split .txt{padding:36px 22px 44px}
+}
+.duo{display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(28px,5vw,80px);align-items:start}
+.duo h2,.duo .lead{text-align:left;margin-left:0}
+.duo .tiles{grid-template-columns:1fr}
+.duo .picks{margin-top:0}
+@media(max-width:860px){.duo{grid-template-columns:1fr}.duo .picks{margin-top:26px}}
+@media(min-width:860px){
+  .card.wide{display:grid;grid-template-columns:1.35fr 1fr}
+  .card.wide .mapbox{grid-row:1/span 4;height:auto;min-height:460px}
+  .card.wide .info{border-top:1px solid rgba(43,26,16,.12);padding:28px 30px}
+  .card.wide .info:first-of-type{border-top:0}
+  .svc article{padding:44px 34px}
+  .svc h3{font-size:1.5rem}
+}
+
 section{padding:70px 0}
 .sep{height:1px;max-width:120px;margin:0 auto;background:linear-gradient(90deg,transparent,var(--orange),transparent)}
 
@@ -108,14 +143,6 @@ section{padding:70px 0}
 .hours li.closed span:last-child{color:#a1452b}
 
 
-.gal{display:flex;flex-direction:column;gap:34px;margin-top:34px}
-.gal figure{background:rgba(0,0,0,.35);border:.8px solid rgba(255,239,220,.3);box-shadow:0 6px 24px rgba(0,0,0,.4)}
-.gal .ph{display:block;overflow:hidden;cursor:zoom-in;background:#000}
-.gal img{display:block;width:100%;aspect-ratio:3/2;object-fit:cover;transition:transform .6s}
-.gal .ph:hover img{transform:scale(1.03)}
-.gal figcaption{padding:22px 22px 26px;text-align:center}
-.gal figcaption h3{font-weight:400;font-size:1.25rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cream)}
-.gal figcaption p{margin-top:8px;font-size:.98rem;color:#e2cdb2}
 #lb{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.92);display:flex;align-items:center;justify-content:center;padding:18px;cursor:zoom-out}
 #lb img{max-width:100%;max-height:100%;object-fit:contain}
 
@@ -160,44 +187,52 @@ footer .logo2{height:54px;mix-blend-mode:lighten;margin-bottom:12px}
   </div>
 </div>
 
-<!-- PRÉSENTATION -->
-<section id="presentation">
-  <div class="wrap">
-    <svg class="flame" viewBox="0 0 24 32" width="22" height="30" fill="none" stroke="#d9731a" stroke-width="1.4" stroke-linejoin="round"><path d="M12 2c1 5 7 8 7 15a7 7 0 0 1-14 0c0-3 2-5 3-7 .5 2 1.5 3 2.5 3.5C10.5 10 11 6 12 2z"/></svg>
+<!-- RANGÉES IMAGE / TEXTE -->
+<section class="split" id="presentation">
+  <div class="pic"><img src="biryani.jpg" alt="Plat indien servi dans un kadai doré, avec raïta et sauce" loading="lazy"></div>
+  <div class="txt">
+    <span class="eyebrow">Nos plats</span>
     <h2>Deux cuisines, une même table</h2>
-    <p class="lead">Chez Jaipur, on choisit sa cuisine : les saveurs indiennes (butter chicken, paneer, plats sizzler, entrées végétariennes) ou les classiques européens (pizzas, pâtes, burgers). À partager à toute heure, avec une vraie carte de cocktails, lassis et thés.</p>
+    <p>Chez Jaipur, on choisit sa cuisine : les saveurs indiennes (butter chicken, paneer, plats sizzler, entrées végétariennes) ou les classiques européens (pizzas, pâtes, burgers). À partager à toute heure, avec une vraie carte de cocktails, lassis et thés.</p>
+    <div class="actions"><a class="btn solid" href="menu.html">Voir le menu</a></div>
   </div>
 </section>
-<div class="sep"></div>
 
-<!-- HISTOIRE -->
-<section id="histoire">
-  <div class="wrap">
+<section class="split rev" id="histoire">
+  <div class="pic"><img src="cuisine.jpg" alt="Le chef dresse un plat avec ses accompagnements" loading="lazy" style="object-position:62% 50%"></div>
+  <div class="txt">
+    <span class="eyebrow">En cuisine</span>
     <h2>Notre histoire</h2>
-    <p class="lead">Jaipur est né d'une envie simple : réunir à Brazzaville deux cuisines à la même table. D'un côté, la générosité de la cuisine indienne, aux épices dosées avec soin ; de l'autre, des classiques européens que chacun connaît et aime. Chaque recette est préparée minute pour que tout le monde y trouve son plaisir.</p>
-    <p class="lead">Qu'on vienne pour un snack entre amis, un déjeuner d'affaires ou une soirée autour d'un cocktail, la table reste la même : chaleureuse, conviviale et toujours ouverte jusqu'à tard.</p>
+    <p>Jaipur est né d'une envie simple : réunir à Brazzaville deux cuisines à la même table. D'un côté, la générosité de la cuisine indienne, aux épices dosées avec soin ; de l'autre, des classiques européens que chacun connaît et aime. Chaque recette est préparée minute pour que tout le monde y trouve son plaisir.</p>
+    <p>Qu'on vienne pour un snack entre amis, un déjeuner d'affaires ou une soirée autour d'un cocktail, la table reste la même : chaleureuse, conviviale et toujours ouverte jusqu'à tard.</p>
   </div>
 </section>
-<div class="sep"></div>
 
-<!-- GALERIE -->
-<section id="galerie">
-  <div class="wrap">
-    <h2>Le restaurant en images</h2>
-    <div class="gal">
-      <figure><span class="ph"><img src="biryani.jpg" alt="Plat indien servi dans un kadai doré, avec raïta et sauce" loading="lazy"></span><figcaption><h3>Nos plats</h3><p>Cuisine indienne ou européenne : des plats généreux, préparés minute et servis bien chauds.</p></figcaption></figure>
-      <figure><span class="ph"><img src="facade.jpg" alt="Façade du restaurant Jaipur" loading="lazy" style="object-position:15% 50%"></span><figcaption><h3>Le restaurant</h3><p>En plein cœur de Brazzaville, avenue Denis Sassou N’Guesso, en face de Congo Télécom.</p></figcaption></figure>
-      <figure><span class="ph"><img src="cuisine.jpg" alt="Le chef dresse un plat avec ses accompagnements" loading="lazy" style="object-position:62% 50%"></span><figcaption><h3>En cuisine</h3><p>Chaque plat est préparé et dressé minute par notre équipe, avec des chutneys et des épices frais.</p></figcaption></figure>
-    </div>
+<section class="split" id="restaurant">
+  <div class="pic"><img src="facade.jpg" alt="Façade du restaurant Jaipur" loading="lazy" style="object-position:20% 50%"></div>
+  <div class="txt">
+    <span class="eyebrow">Le restaurant</span>
+    <h2>En plein cœur de Brazzaville</h2>
+    <p>Avenue Denis Sassou N’Guesso, en face de Congo Télécom : une adresse facile à trouver, pour un déjeuner, un snack entre amis ou une soirée.</p>
+    <ul class="facts"><li>Ouvert du mardi au dimanche, de 8h à 23h</li><li>Cuisine indienne &amp; européenne, cocktails, lassis et thés</li></ul>
+    <div class="actions"><a class="btn solid" id="dirBtn2" href="#" target="_blank" rel="noopener">Itinéraire</a></div>
   </div>
 </section>
-<div class="sep"></div>
 
 <!-- LES INCONTOURNABLES -->
 <section id="carte">
-  <div class="wrap">
-    <h2>Nos incontournables</h2>
-    <p class="lead">Quelques plats et boissons à ne pas manquer.</p>
+  <div class="wrap wide">
+    <div class="duo">
+      <div>
+        <span class="eyebrow">La carte</span>
+        <h2>Nos incontournables</h2>
+        <p class="lead">Quelques plats et boissons à ne pas manquer.</p>
+    <div class="tiles" style="margin-top:30px">
+      <a class="tile" href="menu.html#indien"><h3>Plats indiens</h3><p>Les saveurs de la cuisine indienne</p></a>
+      <a class="tile" href="menu.html#europeen"><h3>Plats européens</h3><p>Entrées, pizzas, pâtes, burgers, wraps, plats…</p></a>
+      <a class="tile" href="menu.html#boissons"><h3>Les boissons</h3><p>Cocktails, bières, whiskies, vins, champagnes…</p></a>
+    </div>
+      </div>
     <div class="picks">
       <div class="pick"><div><b>Sizzler</b><span>Crevette, poisson, agneau ou poulet, sauce sizzler, riz et légumes sautés</span></div><em>12 000<small>FCFA</small></em></div>
       <div class="pick"><div><b>Pizza Butter Chicken</b><span>Poulet sauce indienne, poivron, oignon, fromage</span></div><em>9 000<small>FCFA</small></em></div>
@@ -206,9 +241,6 @@ footer .logo2{height:54px;mix-blend-mode:lighten;margin-bottom:12px}
       <div class="pick"><div><b>Thé Masala (Chai)</b><span>Le thé indien épicé</span></div><em>3 000<small>FCFA</small></em></div>
       <div class="pick"><div><b>Mango lassi</b><span>Lassi à la mangue</span></div><em>3 500<small>FCFA</small></em></div>
     </div>
-    <div class="tiles">
-      <a class="tile" href="menu.html#plats"><h3>Les plats</h3><p>Entrées, pizzas, pâtes, burgers, wraps, plats…</p></a>
-      <a class="tile" href="menu.html#boissons"><h3>Les boissons</h3><p>Cocktails, bières, whiskies, vins, champagnes…</p></a>
     </div>
   </div>
 </section>
@@ -216,7 +248,7 @@ footer .logo2{height:54px;mix-blend-mode:lighten;margin-bottom:12px}
 
 <!-- ÉVÉNEMENTS & LIVRAISON -->
 <section id="services">
-  <div class="wrap">
+  <div class="wrap wide">
     <h2>Événements &amp; livraison</h2>
     <p class="lead">Jaipur vous accompagne aussi en dehors de la salle.</p>
     <div class="svc">
@@ -237,7 +269,7 @@ footer .logo2{height:54px;mix-blend-mode:lighten;margin-bottom:12px}
 
 <!-- AVIS -->
 <section id="avis">
-  <div class="wrap">
+  <div class="wrap wide">
     <h2>Ils nous recommandent</h2>
     <div class="score">
       <div class="big"><span id="ratingNum">4,2</span><small>/5</small></div>
@@ -254,9 +286,9 @@ footer .logo2{height:54px;mix-blend-mode:lighten;margin-bottom:12px}
 
 <!-- INFOS PRATIQUES -->
 <section id="infos">
-  <div class="wrap">
+  <div class="wrap wide">
     <h2>Nous trouver</h2>
-    <div class="card">
+    <div class="card wide">
       <div class="mapbox"><iframe class="map" id="map" title="Carte Google Maps — Jaipur" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe><a class="mapopen" id="mapOpen" href="#" target="_blank" rel="noopener">Ouvrir dans Google Maps ↗</a></div>
       <div class="info">
         <h3>Adresse</h3>
@@ -313,7 +345,7 @@ const SITE = {
 const $ = s => document.querySelector(s);
 const q = encodeURIComponent(SITE.mapsQuery);
 const dir = SITE.mapsLink || ("https://www.google.com/maps/search/?api=1&query=" + q);
-["#heroMap","#dirBtn","#seeReviews","#mapOpen"].forEach(s => $(s).href = dir);
+["#heroMap","#dirBtn","#dirBtn2","#seeReviews","#mapOpen"].forEach(s => $(s).href = dir);
 $("#map").src = "https://maps.google.com/maps?q=" + q + "&hl=fr&z=17&output=embed";
 
 if (SITE.reviewUrl) ["#reviewBtn","#reviewBtn2"].forEach(s => { $(s).href = SITE.reviewUrl; $(s).classList.remove("hidden"); });
@@ -343,7 +375,7 @@ let status = isOpen ? `<span class="dot"></span>Ouvert · jusqu’à ${today.o[1
 $("#heroMeta").innerHTML = `★ ${SITE.rating.score} sur Google &nbsp;·&nbsp; ${status}`;
 
 /* galerie : agrandir au toucher */
-document.querySelectorAll(".gal .ph").forEach(f => f.addEventListener("click", () => {
+document.querySelectorAll(".split .pic").forEach(f => f.addEventListener("click", () => {
   $("#lb img").src = f.querySelector("img").src; $("#lb").classList.remove("hidden");
 }));
 $("#lb").addEventListener("click", () => $("#lb").classList.add("hidden"));

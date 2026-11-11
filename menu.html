@@ -100,11 +100,12 @@ footer .btn{max-width:320px;margin:0 auto 18px}
   <img class="logo" src="logo.png" alt="Jaipur — Restaurant indien &amp; snack bar">
   <p class="tag">Découvrez notre carte</p>
   <div class="choices">
-    <button class="btn" data-go="plats">Plats</button>
+    <button class="btn" data-go="indien">Plats indiens</button>
+    <button class="btn" data-go="europeen">Plats européens</button>
     <button class="btn" data-go="boissons">Boissons</button>
     <a class="btn hidden home-review" id="reviewHome" href="#" target="_blank" rel="noopener">★ Laisser un avis</a>
   </div>
-  <p class="addr"><b>Jaipur — Restaurant indien &amp; Snack bar</b>Avenue Denis Sassou N’Guesso<br>En face de Congo Télécom<br>+242 04 482 11 11</p>
+  <p class="addr"><b>Jaipur — Restaurant indien &amp; Snack bar</b>Avenue Denis Sassou N’Guesso<br>En face de Congo Télécom, Brazzaville<br>+242 04 482 11 11</p>
   <p class="credit"><a href="index.html">← Retour au site</a> · Menu digital par <a href="#" class="creditLink">l’Atelier KPM</a></p>
 </main>
 
@@ -125,7 +126,7 @@ footer .btn{max-width:320px;margin:0 auto 18px}
     <div id="content"></div>
   </main>
   <footer class="wrap">
-    <p class="addr"><b>Jaipur — Restaurant indien &amp; Snack bar</b>Avenue Denis Sassou N’Guesso<br>En face de Congo Télécom<br>+242 04 482 11 11</p>
+    <p class="addr"><b>Jaipur — Restaurant indien &amp; Snack bar</b>Avenue Denis Sassou N’Guesso<br>En face de Congo Télécom, Brazzaville<br>+242 04 482 11 11</p>
     <a class="btn hidden" id="reviewFoot" href="#" target="_blank" rel="noopener">★ Laisser un avis</a>
     <p class="warn hidden" id="warn">L’abus d’alcool est dangereux pour la santé. À consommer avec modération.</p>
     <p class="credit">Menu digital par <a href="#" class="creditLink">l’Atelier KPM</a></p>
@@ -141,7 +142,9 @@ const CONFIG = {
 
 /* ======== DONNÉES : [nom, prix FCFA, description, végétarien(1)] ======== */
 const MENU = {
-plats: { title: "Plats", cats: [
+indien: { title: "Plats indiens", cats: [] },
+
+europeen: { title: "Plats européens", cats: [
  { id:"salades", name:"Salades", items:[
   ["Cocktail avocat crevette",6000,"Crevettes, avocat, poivron, concombre et laitue"],
   ["Salade poisson grillé",6000,"Poisson grillé, laitue, tomate cerise, concombre, câpres, cornichons et olives"],
@@ -223,7 +226,7 @@ plats: { title: "Plats", cats: [
   ["Paneer chilli",6000,"Fromage cottage frit sauté au gingembre et à l’ail haché, sauce soja, sauce pimentée",1],
   ["Veg Manchurian",5500,"Boulettes de légumes à la sauce manchurian",1]
  ]},
- { id:"plats", name:"Plats", items:[
+ { id:"mains", name:"Plats principaux", items:[
   ["Mix non-veg sizzler",14000,"Poulet, agneau, poisson et crevettes sauce sizzler, servis avec riz et légumes sautés"],
   ["Grill lobster",12500,"Langouste grillée sauce chili coriandre, servie avec riz aux légumes"],
   ["Sizzler",12000,"Au choix : crevette, poisson, agneau ou poulet, sauce sizzler, riz et légumes sautés"],
@@ -363,6 +366,9 @@ const $ = s => document.querySelector(s);
 const norm = s => (s||"").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"");
 const fmt = n => String(n).replace(/\B(?=(\d{3})+(?!\d))/g," ");
 const FLAME = '<svg class="flame" viewBox="0 0 24 32" width="20" height="27" fill="none" stroke="#d9731a" stroke-width="1.4" stroke-linejoin="round"><path d="M12 2c1 5 7 8 7 15a7 7 0 0 1-14 0c0-3 2-5 3-7 .5 2 1.5 3 2.5 3.5C10.5 10 11 6 12 2z"/></svg>';
+const NEXT = { indien:"europeen", europeen:"boissons", boissons:"indien" };
+const SHORT = { indien:"Indiens", europeen:"Européens", boissons:"Boissons" };
+const ALIAS = { plats:"europeen" };
 let current = null, vegOnly = false, query = "", spy = null;
 
 function setupLinks(){
@@ -398,7 +404,7 @@ function render(){
     tabs += `<button class="tab" data-target="${cat.id}">${cat.name}</button>`;
     html += `<section class="cat" id="cat-${cat.id}"><h2>${cat.name}</h2>${cat.note&&!q?`<p class="note">${cat.note}</p>`:""}${body}</section>`;
   });
-  $("#content").innerHTML = html || `<p class="empty">Aucun résultat.</p>`;
+  $("#content").innerHTML = html || (data.cats.length ? `<p class="empty">Aucun résultat.</p>` : `<p class="empty">La carte indienne arrive très bientôt.<br>Demandez-la à notre équipe en salle.</p>`);
   $("#tabs").innerHTML = tabs;
   $("#tabs").classList.toggle("hidden", !tabs);
   observe();
@@ -428,10 +434,10 @@ function open(key, push=true){
   current = key; vegOnly = false; query = "";
   $("#search").value = "";
   $("#vegBtn").classList.remove("on");
-  $("#vegBtn").classList.toggle("hidden", key !== "plats");
+  $("#vegBtn").classList.toggle("hidden", key === "boissons" || !MENU[key].cats.length);
   $("#warn").classList.toggle("hidden", key !== "boissons");
   $("#menuTitle").innerHTML = FLAME + MENU[key].title;
-  $("#sw").textContent = key === "plats" ? "Boissons" : "Plats";
+  $("#sw").textContent = SHORT[NEXT[key]];
   $("#home").classList.add("hidden");
   $("#bg").classList.add("hidden");
   $("#menu").classList.remove("hidden");
@@ -449,7 +455,7 @@ function home(push=true){
 
 document.querySelectorAll("[data-go]").forEach(b => b.addEventListener("click", () => open(b.dataset.go)));
 $("#back").addEventListener("click", () => home());
-$("#sw").addEventListener("click", () => open(current === "plats" ? "boissons" : "plats"));
+$("#sw").addEventListener("click", () => open(NEXT[current]));
 $("#search").addEventListener("input", e => { query = e.target.value; render(); });
 $("#vegBtn").addEventListener("click", e => { vegOnly = !vegOnly; e.currentTarget.classList.toggle("on", vegOnly); render(); });
 $("#tabs").addEventListener("click", e => {
@@ -457,12 +463,12 @@ $("#tabs").addEventListener("click", e => {
   document.getElementById("cat-" + c.dataset.target).scrollIntoView({behavior:"smooth", block:"start"});
 });
 window.addEventListener("popstate", () => {
-  const h = location.hash.slice(1);
+  const h = ALIAS[location.hash.slice(1)] || location.hash.slice(1);
   if (MENU[h]) open(h, false); else home(false);
 });
 
 setupLinks();
-const h0 = location.hash.slice(1);
+const h0 = ALIAS[location.hash.slice(1)] || location.hash.slice(1);
 if (MENU[h0]) open(h0, false);
 </script>
 </body>
