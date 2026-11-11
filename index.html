@@ -51,6 +51,14 @@ h2{font-weight:300;font-size:1.9rem;line-height:1.25;letter-spacing:.02em;text-a
 .hero .cta .btn{display:block}
 .hero .addr{margin-top:20px;font-size:.88rem;color:#dcc7ad}
 
+/* services */
+.svc{display:grid;gap:14px;margin-top:34px}
+@media(min-width:620px){.svc{grid-template-columns:1fr 1fr}}
+.svc article{padding:28px 22px;border:.8px solid rgba(255,239,220,.55);background:rgba(0,0,0,.35);text-align:center;display:flex;flex-direction:column}
+.svc h3{font-weight:400;font-size:1.3rem;letter-spacing:.03em}
+.svc p{font-size:.95rem;color:#e2cdb2;margin:10px 0 18px;flex:1}
+.svc .btn{padding:13px 18px;font-size:.84rem}
+
 section{padding:70px 0}
 .sep{height:1px;max-width:120px;margin:0 auto;background:linear-gradient(90deg,transparent,var(--orange),transparent)}
 
@@ -207,6 +215,27 @@ footer .logo2{height:54px;mix-blend-mode:lighten;margin-bottom:12px}
 </section>
 <div class="sep"></div>
 
+<!-- ÉVÉNEMENTS & LIVRAISON -->
+<section id="services">
+  <div class="wrap">
+    <h2>Événements &amp; livraison</h2>
+    <p class="lead">Jaipur vous accompagne aussi en dehors de la salle.</p>
+    <div class="svc">
+      <article>
+        <h3>Événements &amp; privatisation</h3>
+        <p>Anniversaires, repas d’entreprise, retrouvailles entre amis : privatisez Jaipur ou réservez une grande table, et composez votre menu avec notre équipe.</p>
+        <a class="btn solid contactBtn" data-msg="Bonjour, je souhaite des informations pour un événement / une privatisation chez Jaipur." href="#" target="_blank" rel="noopener">Nous contacter</a>
+      </article>
+      <article>
+        <h3>Livraison</h3>
+        <p>Retrouvez nos plats et snacks indiens chez vous ou au bureau. Contactez-nous pour passer commande et connaître les zones desservies.</p>
+        <a class="btn solid contactBtn" data-msg="Bonjour, je souhaite commander en livraison chez Jaipur." href="#" target="_blank" rel="noopener">Commander en livraison</a>
+      </article>
+    </div>
+  </div>
+</section>
+<div class="sep"></div>
+
 <!-- AVIS -->
 <section id="avis">
   <div class="wrap">
@@ -277,6 +306,7 @@ const SITE = {
     { d:"Samedi",   o:["08:00","23:00"] },
     { d:"Dimanche", o:["08:00","23:00"] }
   ],
+  contactWa: "242044821111",   // numéro WhatsApp (format international, sans + ni espaces) pour les boutons Événements / Livraison
   social: { instagram:"https://www.instagram.com/jaipurrestaurantcongo/", facebook:"https://www.facebook.com/Jaipurrestaurantcongo/", whatsapp:"", tiktok:"https://www.tiktok.com/@jaipur.central.bar" },   // vide = masqué
   kpmUrl: ""
 };
@@ -320,6 +350,9 @@ document.querySelectorAll(".gal figure").forEach(f => f.addEventListener("click"
 $("#lb").addEventListener("click", () => $("#lb").classList.add("hidden"));
 
 /* réseaux */
+document.querySelectorAll(".contactBtn").forEach(a=>{
+  a.href = "https://wa.me/" + SITE.contactWa + "?text=" + encodeURIComponent(a.dataset.msg);
+});
 const labels = {instagram:"Instagram", facebook:"Facebook", whatsapp:"WhatsApp", tiktok:"TikTok"};
 const links = Object.entries(SITE.social).filter(([,v]) => v);
 if (links.length){
