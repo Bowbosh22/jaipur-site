@@ -115,6 +115,12 @@ section.cat::after{bottom:6px;right:6px;border-left:0;border-top:0}
 .price small{color:#b9a687}
 .leaf{margin-left:8px}
 
+.info{margin:0 0 18px;border:1px solid rgba(226,189,122,.35);background:rgba(10,7,5,.86);color:#d6c6ad}
+.info summary{cursor:pointer;padding:14px 18px;font-family:var(--serif);letter-spacing:.14em;text-transform:uppercase;font-size:.8rem;color:var(--gold);list-style:none}
+.info summary::after{content:"+";float:right}
+.info[open] summary::after{content:"–"}
+.info ol{padding:0 18px 16px 38px;font-size:.86rem;line-height:1.5}
+.info li{margin:5px 0}
 footer{padding:26px 0 40px;text-align:center}
 footer .addr{margin-top:0;margin-bottom:18px}
 .warn{color:#9d8a76;font-size:.74rem;margin:16px 0 0}
@@ -172,7 +178,149 @@ const CONFIG = {
 
 /* ======== DONNÉES : [nom, prix FCFA, description, végétarien(1)] ======== */
 const MENU = {
-indien: { title: "Plats indiens", cats: [] },
+indien: { title: "Plats indiens", info: [
+  "Chaque plat est préparé à la commande : le service peut prendre jusqu’à 20 minutes. Merci de votre patience.",
+  "Une fois la commande confirmée, elle ne peut plus être annulée.",
+  "Dites-nous vos préférences de goût : normal, moyennement épicé ou épicé.",
+  "Pour des raisons d’hygiène et de qualité, les aliments et boissons venant de l’extérieur ne sont pas autorisés.",
+  "En cas d’allergie ou d’intolérance, prévenez notre équipe avant de commander.",
+  "Toutes les viandes du restaurant sont halal."
+ ], cats: [
+ { id:"soupes", name:"Soupes", items:[
+   ["Prawns Noodle Soup", 6000, ""],
+   ["Chicken Noodle Soup", 5500, ""],
+   ["Chicken Manchow Soup", 5000, ""],
+   ["Cream Of Mushroom", 6000, ""],
+   ["Cream Of Tomato Soup", 4500, ""]
+  ] },
+ { id:"entrees", name:"Du feu à l’assiette", note:"Entrées sèches", groups:[
+  { sub:"Non végétarien", items:[
+   ["Tandoori Mix Platter", 16000, "12 pièces. Poulets, poissons, crevettes et brochettes d'agneau haché"],
+   ["Assorted Platter", 14000, "10 pièces. Sélection de 4 recettes de poulet/Agneaux/Fruits de mer rôtis"],
+   ["Mutton Lucknowi Tikka", 9500, "6 pièces. Agneau désossé mariné avec du gingembre, ail, pâte de papaye, cardamome, noix de muscade et épices indienne puis rôti dans le four tandoor"],
+   ["Chapli Kabab", 8500, "4 pièces. Agneau haché mélangé avec du gingembre haché, ail, coriandre oignon, poivron, épices puis grillé sur le grille"],
+   ["Lamb Tikka/Seekh Kabab", 9000, "6 pièces. Agneau désossé mariné au gingembre, ail, huile de moutarde, coriandre épices indienne puis rôti dans le four tandoor"],
+   ["Keema Samosa", 4500, "2 pièces. Samosa farcis a la viande hachée avec épice"],
+   ["Tandoori Prawns", 8500, "6 pièces. Crevettes marinées au yaourt égoutté, piment, gingembre, ail, royales épices indienne puis rôti dans le four tandoor"],
+   ["Prawns Malai Tikka", 8500, "6 pièces. Gambas marinées avec pâte de gingembre, ail, yaourt égoutté, crème de cuisson, fenugrec et des épices indienne puis rôti dans le four tandoor"],
+   ["Prawns Koliwada", 9000, "6 pièces. Gambas marinées au gingembre, ail, farine de pois chiche, fenugrec, cumin, girofle, moutarde, cardamome et épices indienne puis frits"],
+   ["Punjabi Fish Fried", 7500, "6 pièces. Poisson mariné avec de la farine de maïs, ail, fenugrec, carambole et épices indienne puis frits"],
+   ["Fish Amritsari", 7000, "6 pièces. Poisson mariné avec farine de maïs, carambole et épices indienne puis rôti au four"],
+   ["Fish Tikka", 6500, "6 pièces. Poisson marinés avec le gingembre, ail, yaourt égoutté, huile de moutarde épices indienne puis rôti au four tandoor"],
+   ["Chicken Dilruba Seekh Kabab", 7500, "6 pièces. Poulet haché melangé avec pâte de gingembre, ail, betterave, noix de cajou fenugrec et épices indienne.rôti au four tandoor puis garni de sesame"],
+   ["Anari Chicken Tikka", 7500, "6 pièces. Poulet désossé mariné au yaourt égoutté avec betterave, gingembre, ail, grenade et épices indienne puis rôti au four tandoor"],
+   ["Chicken Tandoori", 7500, "Poulet mariné avec pâte de gingembre, ail, huile de moutarde, jus de citron, coriandre et épices indienne puis rôti au four tandoor"],
+   ["Afghani Chicken Tikka", 6500, "6 pièces. Poulet désossé mariné avec pâte de gingembre, ail, poivre blanc, cardamome, noix de cajou, épices indienne puis rôti au four tandoor"],
+   ["Chicken Tikka", 6000, "6 pièces. Poulet désossé mariné au yaourt égoutté, gingembre, coriandre, huile de moutarde, cumin et épices indienne puis rôti au four tandoor"],
+   ["Tandoori Lollipop", 5500, "Ailes de poulet mariné avec yaourt égoutté, gingembre, coriandre, cumin, et épices indienne puis rôti au four tandoor"]
+  ] },
+  { sub:"Végétarien", items:[
+   ["Veg Platter", 11500, "12 pièces. Sélection de légumes et fromage rôtis au four tandoor", 1],
+   ["Cheese Stuffed Mushroom", 7500, "6 pièces. Champignons farcis au poivron rouge et vert, mariné au yaourt égoutté, gingembre, coriandre, ail et épices indienne puis rôti au four tandoor", 1],
+   ["Mushroom Tikka-6Piéces", 7000, "Morceaux de champignons mariné au yaourt égoutté, gingembre, coriandre cumin, épices indienne puis rôti au four tandoor", 1],
+   ["Paneer Multani Tikka", 7500, "6 pièces. Paneer farcis aux légumes et au fromage, mariné au yaourt égoutté, farine de maïs, huile de moutarde, gingembre et épices indienne puis rôti au four tandoor", 1],
+   ["Anari Paneer Tikka", 7000, "6 pièces. Fromage cottage mariné au yaourt égoutté avec betterave, gingembre, ail, grenade, épices indienne puis rôti au four tandoor", 1],
+   ["Peri Peri Paneer Tikka", 6000, "6 pièces. Fromage cottage mariné au yaourt égoutté, gingembre, ail, poudre peri peri, et épices indienne puis rôti au four tandoor", 1],
+   ["Hara Bhara Kabab", 6000, "6 pièces. Roundels de légumes émincés mélangé avec des épices indienne puis frit", 1],
+   ["Chana Seekh Kabab", 6000, "6 pièces. Pois chiches et pomme de terre mélangé avec du gingembre, ail et épices indienne puis rôti au four tandoor", 1],
+   ["Veg Samosa", 2500, "2 pièces. Samosas farcis de pomme de terre et petits pois marinés aux épices indienne puis frit", 1]
+  ] }
+ ] },
+ { id:"chef", name:"Coin du chef", groups:[
+  { sub:"Non végétarien", items:[
+   ["Peri-Peri Meatballs", 8000, "6 pièces. Boulettes de viande cuits dans une sauce crème fraiche, ail, poivron, sauce au mouton, fromage et épices peri peri"],
+   ["Turkish Fried Chicken", 7000, "6 pièces. Poulet mariné à l’ail, poudre de poivron, paprika et cajoun puis frit"],
+   ["Beetroot Chicken Tikka", 7000, "6 pièces. Morceaux de poulet désossés marinés au yaourt égoutté, gingembre, betterave, coriandre et épices indienne puis rôti au four tandoor"],
+   ["Chicken Chantara Tikka", 7000, "6 pièces. Poulet désossés marinés au yaourt égoutté, gingembre, poudre de noix de coco, feuilles de curry, moutarde en poudre et épices indienne puis rôti au four tandoor"]
+  ] },
+  { sub:"Végétarien", items:[
+   ["Veg Kothe", 7000, "Mélange de légumes frit puis sautées avec gingembre, ail, sauce piment, tomate et soja", 1],
+   ["Peri Peri Veg Ball", 6500, "6 pièces. Boules de fromage cottage et légumes mélangés avec des épices puis frit", 1],
+   ["Corn And Salt Pepper", 6500, "Graines de maïs, farine de maïs et poudre de poivron sautés avec ail, oignons et poivrons", 1],
+   ["Peri Peri Soya Chaap", 6500, "6 pièces. Morceaux de soja mariné au yaourt égoutté, gingembre, ail, poudre peri peri, épices indienne puis rôti au four", 1],
+   ["Crispy Aloo Tikki Chaat", 6500, "Steak de pomme de terre mélangé avec farine de riz, sel, poudre de cumin et épices indienne", 1],
+   ["Tandoori Paneer Papdi", 6500, "Un délicieux apéritif savoreux et croustillant, composé de cubes de paneer épices indienne et enrobès de papad croustillant émietté", 1],
+   ["Papdi Chaat", 6500, "Une spécialité populaire de rue de l’inde, de saveur croustillante, yaourt, et épicé indienne", 1]
+  ] }
+ ] },
+ { id:"saveurs", name:"Les saveurs de l’Inde", note:"Plats en sauce", groups:[
+  { sub:"Non végétarien", items:[
+   ["Lobster Curry", 12000, "Langouste cuites dans une sauce curry tomate, oignon, yaourt, gingembre, ail, et épices indienne"],
+   ["Tandoori Prawns Masala", 8500, "Crevettes rôti puis cuites dans une sauce tomate, noix de cajou, sauce oignon, gingembre, ail et épices indienne"],
+   ["Prawns Tawa Masala", 7500, "Crevettes cuites dans une sauce tomate et noix de cajou, gingembre, ail, oignon, poivron et epices indienne"],
+   ["Prawns Dum Masala", 7500, "Crevettes cuites dans une sauce tomate et noix de cajou, yaourt, gingembre, crème de cuisson et épices indienne"],
+   ["Fish Tikka Masala", 7000, "Poisson rôti puis cuits dans une sauce tomate et noix de cajou, sauce oignon, gingembre, ail et épices indienne"],
+   ["Fish Goan Curry", 6500, "Poissons cuits dans une sauce curry tomate et oignon, noix de coco, tamarin, et épices indienne"],
+   ["Mutton Nihari", 10000, "Morceaux d’agneau désossé cuit dans la sauce tomate et oignon, yaourt, gingembre, ail hachés avec un mélange d’épices moulues"],
+   ["Mutton Keema Curry", 9000, "Agneau haché cuit dans une sauce mix, yaourt, gingembre, ail, oignon masala, et épices indienne"],
+   ["Mutton Korma", 9000, "Agneau désossé mijoté dans une sauce crémeuse aux épices, cardamome, gingembre, ail, noix de cajou et épices indienne"],
+   ["Mutton Rara", 8500, "Agneau désossé cuit dans une sauce tomate et oignon, agneau haché, yaourt gingembre, ail et épices indienne"],
+   ["Jaipur Darbari Ghost", 8000, "Agneau désossé cuit dans la sauce noix de cajou et tomate, fromage, et épices indienne"],
+   ["Lamb Vindaloo", 7000, "Agneau désossé cuit dans la sauce oignon, noix de cajou, coco, pommes de terre et épices indienne"],
+   ["Mutton Rogan Josh", 7000, "Agneau désossé cuit dans la sauce oignon et tomate, yaourt, pâte de gingembre ail et épices indienne"],
+   ["Chicken Methi Malai", 7500, "Poulet désossé cuit dans une sauce crémeuse aux feuilles de fenugrec gingembre, ail et épices indiennes"],
+   ["Chicken Changezi", 7500, "Poulet désossé cuit dans une sauce mix (tomate, oignon et noix de cajou), yaourt, cardamome, cannelle et épices indienne"],
+   ["Butter Chicken", 7000, "Poulet désossé rôti puis cuit une sauce crémeuse à la tomate, beurre, feuilles de fenugrec, sucre et épices indienne"],
+   ["Chicken Tikka Masala", 6500, "Poulet désossé rôti puis cuit dans une sauce tomate, oignon et noix de cajou poudre de piment et épices indienne"],
+   ["Chicken Vindalo", 6500, "Poulet désossé cuit dans une sauce oignon et noix de cajou, noix de coco, pommes de terre et épices indienne"],
+   ["Palak Chicken", 6500, "Poulet désossé cuit une sauce crémeuse aux épinards, poudre de cumin et épices indienne"],
+   ["Chicken Curry", 6000, "Poulet désossé cuits dans une sauce curry tomate et oignon, yaourt, gingembre ail et épices indienne"],
+   ["Egg Tawa Masala", 5500, "Œufs cuits dans une sauce tomate et noix de cajou, gingembre, ail, oignon poivron et épices indienne"]
+  ] },
+  { sub:"Végétarien", items:[
+   ["Mushroom Tikka Masala", 8000, "Champignon rôti puis cuit dans une sauce tomate, oignon et noix de cajou, poudre de piment, oignon masala et épices indienne", 1],
+   ["Paneer Tikka Masala", 7000, "Fromage blanc rôti puis cuit dans une sauce tomate, oignon et noix de cajou, poudre de piment, oignon masala et épices indienne", 1],
+   ["Veg Kofta Curry", 7000, "Boulettes de légumes cuites dans une sauce curry oignon et tomate, noix de cajou, gingembre, ail et épices indienne", 1],
+   ["Veg Tawa", 7000, "Légumes mélangés cuits une sauce tomate et oignon, pâte d’ail, gingembre beurre, crème fraîche et épices indienne", 1],
+   ["Mushroom Lababdar", 7000, "Champignons cuit une sauce oignons, tomate et noix de cajou, beurre, créme, poivron, oignons haché, feuilles de fenugrec et épices indienne", 1],
+   ["Paneer Butter Masala", 7000, "Fromage blanc cuit dans une sauce tomate et noix de cajou, beurre, feuilles de fenugrec, sucre et épices indienne", 1],
+   ["Shahi Paneer", 7000, "Fromage blanc cuit dans une sauce crémeuse aux noix de cajou, sucre, cardomome et épice indienne", 1],
+   ["Veg Makhani", 7000, "Mélange de légumes cuits dans une sauce oignons, tomate et noix de cajou beurre, crème de cuisson, feuilles de fenugrec et épices indienne", 1],
+   ["Paneer Tawa", 6500, "Fromage blanc mijoté dans une sauce tomate et noix de cajou, gingembre, ail, oignon, poivron et épices indienne", 1],
+   ["Paneer Jalfrezi", 6500, "Fromage blanc cuit dans une sauce tomate, oignon et noix de cajou, gingembre, ail, oignon, poivron, tomate coupés en julienne et épices indienne", 1],
+   ["Matar Mushroom Masala", 6500, "Champignons et petits pois cuit une sauce mix, oignon, tomate masala, ail gingembre, crème fraîche et épices indienne", 1],
+   ["Lassoni Palak Paneer", 6000, "Fromage blanc cuits dans une sauce crémeuse aux épinards, ail, cumin et épices indienne", 1],
+   ["Aloo Bhindi Do Pyaza", 6000, "Gombo et pomme de terre cuits dans une sauce oignon, tomate, gingembre ail et épices indienne", 1]
+  ] }
+ ] },
+ { id:"lentilles", name:"Lentilles", items:[
+   ["Dal Panchmel", 6000, "Mélange de cinq lentilles mijotées avec tomate et oignon masala, cumin, gingembre, ail et épices indienne avec saveur de tadka", 1],
+   ["Dal Bukhara", 6000, "Lentilles noires mijotées avec oignon et tomate masala, gingembre, ail, beurre créme de cuisson et épices indienne avec saveur fumée", 1],
+   ["Heeng Jeera Tadka Dal", 6000, "Lentilles jaunes mijotées avec tomate et oignon, gingembre, ail, épices indienne avec saveur tadka au ail et asafoetida", 1],
+   ["Dal Makhani", 6000, "Lentilles noires, lentilles jaunes et haricots rouges mijotés avec tomate, beurre créme de cuisson et épices indienne", 1],
+   ["Lassoni Dal Palak", 5000, "Lentilles jaunes mijotées avec des épinards, ail, piment vert et épices indienne", 1],
+   ["Dal Fry", 5000, "Lentilles jaunes mijotées avec oignon, tomate, ail, gingembre, cumin et épices indienne", 1]
+  ] },
+ { id:"biryani", name:"Biryani & riz", items:[
+   ["Jaipur Mix Aroma Biryani", 11000, "Viandes, poulets et crevettes cuits dans une sauce oignon, tomate, ail, yaourt avec du riz basmati parfumé, oignons caramélisés, menthe, safran et épices spéciales aromatiques indiennes"],
+   ["Crevettes Dum Biryani", 9000, "Crevettes cuites dans une sauce oignon, tomate, ail, yaourt avec du riz basmati parfumé, oignons caramélisés, menthe, safran et épices spéciales aromatiques indienne"],
+   ["Mutton Dum Biryani", 9000, "Mouton cuits dans une sauce oignon, tomate, ail, yaourt avec du riz basmati parfumé, oignons caramélisés, menthe, safran et épices spéciales aromatiques indienne"],
+   ["Mutton Keema Pulao", 9000, "Agneau haché cuits avec du riz basmati, oignon, poivron, ail, gingembre, beurre, coriande et épices spéciales indienne"],
+   ["Butter Chicken Biryani", 7500, "Poulet rôti puis cuits dans une sauce oignon, tomate, ail, yaourt avec du riz basmati parfumé, oignons caramélisés, créme de cuisson, menthe, safran et épices spéciales aromatiques indienne"],
+   ["Chicken Tikka Biryani", 7500, "Poulet rôti puis cuits dans une sauce oignon, tomate, ail, yaourt avec du riz basmati parfumé, oignons caramélisés, menthe, safran et épices spéciales aromatiques indienne"],
+   ["Hyderabadi Chicken Biryani", 7000, "Poulet cuits dans une sauce oignon et tomate, epinards, ail, yaourt avec du riz basmati parfumé, oignons caramélisés, noix de cajou, menthe, safran et épices spéciales aromatiques indienne"],
+   ["Paneer Dum Biryani", 8000, "Paneer cuits dans une sauce oignon, tomate, ail, yaourt avec du riz basmati parfumé, oignons caramélisés, créme de cuisson, menthe, safran et jaipur épices spéciales aromatiques indienne", 1],
+   ["Egg Masala Biryani", 7000, "Œufs cuits dans une sauce oignon, tomate, ail, yaourt avec du riz basmati parfumé, oignons caramélisés, fromage blanc, menthe, safran et épices spéciales aromatiques indienne"],
+   ["Tawa Pulao", 5000, "Riz basmati cuit avec oignon, poivron, ail, pomme de terre, carotte, gingembre, beurre, coriandre, menthe et épices spéciales indiennes", 1],
+   ["Jeera Rice", 3000, "", 1],
+   ["Steamed Rice", 2000, "", 1]
+  ] },
+ { id:"pains", name:"Nos pains", items:[
+   ["Assorted Breads", 7000, ""],
+   ["Chicken Keema Naan", 5000, ""],
+   ["Cheese Garlic Naan", 4000, "", 1],
+   ["Cheese Naan", 4000, "", 1],
+   ["Paneer Onion Paratha", 4000, "", 1],
+   ["Aloo Onion Paratha", 3500, "", 1],
+   ["Butter Roomali Roti", 2500, "", 1],
+   ["Mint Laccha Paratha", 2500, "", 1],
+   ["Garlic Naan", 2000, "", 1],
+   ["Butter/Plain Naan", 1500, "", 1],
+   ["Punjabi Missi Roti", 2000, "", 1],
+   ["Butter/Plain Chapati", 1500, "", 1],
+   ["Tandoori Roti", 1000, "", 1]
+  ] }
+]},
 
 europeen: { title: "Plats européens", cats: [
  { id:"salades", name:"Salades", items:[
@@ -434,6 +582,7 @@ function render(){
     tabs += `<button class="tab" data-target="${cat.id}">${cat.name}</button>`;
     html += `<section class="cat" id="cat-${cat.id}"><h2>${cat.name}</h2>${cat.note&&!q?`<p class="note">${cat.note}</p>`:""}${body}</section>`;
   });
+  if (data.info && !q) html = `<details class="info"><summary>Informations importantes</summary><ol>${data.info.map(t=>`<li>${t}</li>`).join("")}</ol></details>` + html;
   $("#content").innerHTML = html || (data.cats.length ? `<p class="empty">Aucun résultat.</p>` : `<p class="empty">La carte indienne arrive très bientôt.<br>Demandez-la à notre équipe en salle.</p>`);
   $("#tabs").innerHTML = tabs;
   $("#tabs").classList.toggle("hidden", !tabs);
