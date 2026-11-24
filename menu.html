@@ -40,6 +40,15 @@ a{color:inherit;text-decoration:none}
 #home{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;padding:42px 20px 22px}
 .logo{display:block;width:min(76%,320px);margin:0 auto 8px;mix-blend-mode:lighten}
 .tag{text-align:center;letter-spacing:.2em;text-transform:uppercase;font-size:.78rem;color:#e8c9a4;text-shadow:0 1px 8px #000}
+.pdj{margin-top:auto;margin-bottom:20px;padding:16px 18px;text-align:center;border:1px solid rgba(226,189,122,.6);background:rgba(10,7,5,.78);position:relative}
+.pdj::before,.pdj::after{content:"";position:absolute;width:16px;height:16px;border:1px solid #e2bd7a}
+.pdj::before{top:4px;left:4px;border-right:0;border-bottom:0}
+.pdj::after{bottom:4px;right:4px;border-left:0;border-top:0}
+.pdj-label{display:block;font-family:'Cinzel',serif;letter-spacing:.24em;text-transform:uppercase;font-size:.7rem;color:#e2bd7a}
+.pdj-name{display:block;font-family:'Cinzel',serif;font-weight:500;letter-spacing:.07em;text-transform:uppercase;font-size:1.05rem;color:#fff;margin-top:7px}
+.pdj-desc{display:block;font-size:.84rem;color:#d6c6ad;margin-top:5px}
+.pdj-price{display:block;font-family:'Cinzel',serif;color:#e2bd7a;margin-top:7px;font-size:1rem}
+.pdj+.choices{margin-top:0}
 .choices{display:grid;gap:12px;margin-top:auto}
 .addr{text-align:center;font-size:.84rem;color:#dcc7ad;margin-top:22px;line-height:1.6}
 .addr b{font-weight:400;color:var(--cream);display:block;letter-spacing:.12em;text-transform:uppercase;font-size:.78rem;margin-bottom:2px}
@@ -135,6 +144,12 @@ footer .btn{max-width:320px;margin:0 auto 18px}
 <main id="home" class="wrap">
   <img class="logo" src="logo.png" alt="Jaipur — Restaurant indien &amp; snack bar">
   <p class="tag">Découvrez notre carte</p>
+  <div class="pdj hidden" id="pdj">
+    <span class="pdj-label">Plat du jour</span>
+    <b class="pdj-name" id="pdjName"></b>
+    <span class="pdj-desc" id="pdjDesc"></span>
+    <span class="pdj-price" id="pdjPrice"></span>
+  </div>
   <div class="choices">
     <button class="btn" data-go="indien">Plats indiens</button>
     <button class="btn" data-go="europeen">Plats européens</button>
@@ -171,6 +186,9 @@ footer .btn{max-width:320px;margin:0 auto 18px}
 
 <script>
 /* ======== À PERSONNALISER ======== */
+// PLAT DU JOUR : modifier ici (ou laisser name:"" pour masquer la ligne)
+const PLAT_DU_JOUR = { name:"Butter Chicken", desc:"Poulet désossé rôti, sauce crémeuse à la tomate et au beurre", price:7000 };
+
 const CONFIG = {
   reviewUrl: "",                    // lien Google « Laisser un avis » (QR Avis) — vide = bouton masqué
   kpmUrl: ""                        // lien vers l'Atelier KPM (facultatif)
@@ -550,6 +568,12 @@ const ALIAS = { plats:"europeen" };
 let current = null, vegOnly = false, query = "", spy = null;
 
 function setupLinks(){
+  if (PLAT_DU_JOUR.name){
+    $("#pdjName").textContent = PLAT_DU_JOUR.name;
+    $("#pdjDesc").textContent = PLAT_DU_JOUR.desc || "";
+    $("#pdjPrice").textContent = fmt(PLAT_DU_JOUR.price) + " FCFA";
+    $("#pdj").classList.remove("hidden");
+  }
   if (CONFIG.reviewUrl){
     ["#reviewHome","#reviewFoot"].forEach(s => { $(s).href = CONFIG.reviewUrl; $(s).classList.remove("hidden"); });
   }
