@@ -187,9 +187,11 @@ footer .btn{max-width:320px;margin:0 auto 18px}
 <script>
 /* ======== À PERSONNALISER ======== */
 // PLAT DU JOUR : modifier ici (ou laisser name:"" pour masquer la ligne)
-const PLAT_DU_JOUR = { name:"Butter Chicken", desc:"Poulet désossé rôti, sauce crémeuse à la tomate et au beurre", price:7000 };
+let PLAT_DU_JOUR = { name:"Butter Chicken", desc:"Poulet désossé rôti, sauce crémeuse à la tomate et au beurre", price:7000 };
 
 const CONFIG = {
+  sheetId: "",                      // identifiant du Google Sheets publié (voir guide) — vide = carte intégrée à la page
+  gids: { jour:"", indien:"", europeen:"", boissons:"" },   // numéro (gid) de chaque onglet
   reviewUrl: "",                    // lien Google « Laisser un avis » (QR Avis) — vide = bouton masqué
   kpmUrl: ""                        // lien vers l'Atelier KPM (facultatif)
 };
@@ -568,12 +570,7 @@ const ALIAS = { plats:"europeen" };
 let current = null, vegOnly = false, query = "", spy = null;
 
 function setupLinks(){
-  if (PLAT_DU_JOUR.name){
-    $("#pdjName").textContent = PLAT_DU_JOUR.name;
-    $("#pdjDesc").textContent = PLAT_DU_JOUR.desc || "";
-    $("#pdjPrice").textContent = fmt(PLAT_DU_JOUR.price) + " FCFA";
-    $("#pdj").classList.remove("hidden");
-  }
+  showPdj();
   if (CONFIG.reviewUrl){
     ["#reviewHome","#reviewFoot"].forEach(s => { $(s).href = CONFIG.reviewUrl; $(s).classList.remove("hidden"); });
   }
@@ -584,7 +581,7 @@ function setupLinks(){
 
 function itemHTML(it){
   const [name, price, desc, veg, img] = it;   // img (optionnel) : nom du fichier dans le dossier plats/
-  return `<div class="item">${img?`<img class="thumb" src="plats/${img}" alt="${name}" loading="lazy">`:""}<div class="txt"><div class="row"><span class="name">${name}${veg?'<span class="leaf" title="Végétarien"></span>':''}</span></div>${desc?`<p class="desc">${desc}</p>`:""}<span class="price">${fmt(price)}<small>FCFA</small></span></div></div>`;
+  return `<div class="item">${img?`<img class="thumb" src="${photoSrc(img)}" alt="${name}" loading="lazy">`:""}<div class="txt"><div class="row"><span class="name">${name}${veg?'<span class="leaf" title="Végétarien"></span>':''}</span></div>${desc?`<p class="desc">${desc}</p>`:""}<span class="price">${fmt(price)}<small>FCFA</small></span></div></div>`;
 }
 
 function render(){
@@ -597,7 +594,7 @@ function render(){
     if (cat.groups){
       cat.groups.forEach(g => {
         const its = g.items.filter(match);
-        if (its.length) body += `<h3 class="sub">${g.sub}</h3>` + its.map(itemHTML).join("");
+        if (its.length) body += (g.sub ? `<h3 class="sub">${g.sub}</h3>` : "") + its.map(itemHTML).join("");
       });
     } else {
       body = cat.items.filter(match).map(itemHTML).join("");
@@ -670,9 +667,115 @@ window.addEventListener("popstate", () => {
   if (MENU[h]) open(h, false); else home(false);
 });
 
+if (CONFIG.sheetId){ PLAT_DU_JOUR = { name:"" }; restoreCache(); }
+
+/* ---------- GOOGLE SHEETS : la carte lue depuis le tableau du restaurant ---------- */
+function photoSrc(v){
+  if (!v) return "";
+  if (/^https?:/i.test(v)){
+    const m = v.match(/drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?[^ ]*?id=)([\w-]+)/);
+    return m ? `https://drive.google.com/thumbnail?id=${m[1]}&sz=w400` : v;
+  }
+  return "plats/" + v;
+}
+function showPdj(){
+  const ok = PLAT_DU_JOUR && PLAT_DU_JOUR.name;
+  $("#pdj").classList.toggle("hidden", !ok);
+  if (!ok) return;
+  $("#pdjName").textContent = PLAT_DU_JOUR.name;
+  $("#pdjDesc").textContent = PLAT_DU_JOUR.desc || "";
+  $("#pdjPrice").textContent = PLAT_DU_JOUR.price ? fmt(PLAT_DU_JOUR.price) + " FCFA" : "";
+}
+function parseCSV(t){
+  const rows = []; let row = [], f = "", q = false;
+  for (let i = 0; i < t.length; i++){
+    const c = t[i];
+    if (q){ if (c === '"'){ if (t[i+1] === '"'){ f += '"'; i++; } else q = false; } else f += c; }
+    else if (c === '"') q = true;
+    else if (c === ","){ row.push(f); f = ""; }
+    else if (c === "\n"){ row.push(f); rows.push(row); row = []; f = ""; }
+    else if (c !== "\r") f += c;
+  }
+  if (f !== "" || row.length){ row.push(f); rows.push(row); }
+  return rows;
+}
+const slug = s => norm(s).replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+const isYes = v => /^(oui|yes|x|1|true|vrai)$/.test(norm(v).trim());
+const isNo  = v => /^(non|no|0|false|faux)$/.test(norm(v).trim());
+function rowsToCats(rows){
+  const cats = [], by = {};
+  rows.forEach(r => {
+    const [cat, sub, name, desc, price, veg, avail, photo, note] = [0,1,2,3,4,5,6,7,8].map(i => (r[i]||"").trim());
+    if (!cat || !name || isNo(avail)) return;
+    const p = parseInt(price.replace(/\D/g,""), 10);
+    if (isNaN(p)) return;
+    let c = by[cat];
+    if (!c){ c = by[cat] = { id: slug(cat) || "c" + cats.length, name: cat, items: [], groups: [] }; cats.push(c); }
+    if (note && !c.note) c.note = note;
+    const item = [name, p, desc, isYes(veg) ? 1 : 0, photo];
+    if (sub){
+      let g = c.groups.find(g => g.sub === sub);
+      if (!g){ g = { sub, items: [] }; c.groups.push(g); }
+      g.items.push(item);
+    } else c.items.push(item);
+  });
+  cats.forEach(c => {
+    if (c.groups.length){ if (c.items.length) c.groups.unshift({ sub:"", items:c.items }); delete c.items; }
+    else delete c.groups;
+  });
+  return cats;
+}
+function parseDate(v){
+  v = (v||"").trim(); let m;
+  if ((m = v.match(/^(\d{1,2})[\/.-](\d{1,2})[\/.-](\d{2,4})$/))) return new Date(+(m[3].length === 2 ? "20"+m[3] : m[3]), +m[2]-1, +m[1], 23, 59, 59);
+  if ((m = v.match(/^(\d{4})-(\d{2})-(\d{2})/))) return new Date(+m[1], +m[2]-1, +m[3], 23, 59, 59);
+  return null;
+}
+function jourFromRows(rows){
+  const r = rows[0] || [];
+  const name = (r[0]||"").trim();
+  const until = parseDate(r[3]);
+  if (!name || (until && until < new Date())) return { name:"" };
+  return { name, desc:(r[1]||"").trim(), price: parseInt(String(r[2]||"").replace(/\D/g,""), 10) || 0 };
+}
+const sheetURL = gid => `https://docs.google.com/spreadsheets/d/e/${CONFIG.sheetId}/pub?gid=${gid}&single=true&output=csv`;
+function restoreCache(){
+  ["indien","europeen","boissons"].forEach(k => {
+    try { const c = JSON.parse(localStorage.getItem("jaipur_" + k) || "null"); if (c && c.length) MENU[k].cats = c; } catch(e){}
+  });
+  try { const j = JSON.parse(localStorage.getItem("jaipur_jour") || "null"); if (j) PLAT_DU_JOUR = j; } catch(e){}
+}
+async function loadSheet(){
+  if (!CONFIG.sheetId) return;
+  await Promise.all(["jour","indien","europeen","boissons"].map(async k => {
+    const gid = CONFIG.gids[k]; if (gid === "" || gid == null) return;
+    try {
+      const ctl = new AbortController(); const to = setTimeout(() => ctl.abort(), 8000);
+      const res = await fetch(sheetURL(gid), { cache:"no-store", signal: ctl.signal }); clearTimeout(to);
+      if (!res.ok) throw new Error("http");
+      const txt = await res.text();
+      if (/^\s*<(!doctype|html)/i.test(txt)) throw new Error("html");
+      const rows = parseCSV(txt).slice(1);
+      if (k === "jour"){
+        PLAT_DU_JOUR = jourFromRows(rows);
+        try { localStorage.setItem("jaipur_jour", JSON.stringify(PLAT_DU_JOUR)); } catch(e){}
+      } else {
+        const cats = rowsToCats(rows);
+        if (cats.length){
+          MENU[k].cats = cats;
+          try { localStorage.setItem("jaipur_" + k, JSON.stringify(cats)); } catch(e){}
+        }
+      }
+    } catch(e){ /* en cas de souci, la carte déjà affichée reste en place */ }
+  }));
+  showPdj();
+  if (current) render();
+}
+
 setupLinks();
 const h0 = ALIAS[location.hash.slice(1)] || location.hash.slice(1);
 if (MENU[h0]) open(h0, false);
+loadSheet();
 </script>
 </body>
 </html>
