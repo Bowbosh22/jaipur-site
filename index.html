@@ -3,6 +3,31 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- ===== MODE « EN PRÉPARATION » : à supprimer (ce bloc complet) après paiement du client ===== -->
+<meta name="robots" content="noindex, nofollow">
+<style id="gate-css">
+html.locked body>*:not(#gate){display:none!important}
+html.locked body{background:#000!important}
+#gate{position:fixed;inset:0;z-index:99999;background:#000;color:#f3e6cf;display:flex;align-items:center;justify-content:center;padding:24px;text-align:center;font-family:'Jost','Helvetica Neue',Arial,sans-serif}
+#gate .box{max-width:340px;width:100%}
+#gate img{width:min(70%,240px);margin:0 auto 22px;display:block}
+#gate h2{font-weight:300;font-size:1.3rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px}
+#gate p{font-size:.95rem;color:#c9b89c}
+</style>
+<script id="gate-js">
+(function(){
+  var KEY="jp_ok";
+  /* aperçu privé : ajouter ?apercu à l'adresse pour voir le site */
+  try{ if(/[?&]apercu(=|&|$)/.test(location.search)) sessionStorage.setItem(KEY,"1"); if(sessionStorage.getItem(KEY)==="1") return; }catch(e){}
+  document.documentElement.classList.add("locked");
+  document.addEventListener("DOMContentLoaded",function(){
+    var g=document.createElement("div");g.id="gate";
+    g.innerHTML='<div class="box"><img src="logo-jaipur-restaurant-indien.png" alt="Jaipur"><h2>Site en préparation</h2><p>Notre site arrive très bientôt.</p></div>';
+    document.body.appendChild(g);
+  });
+})();
+</script>
+<!-- ===== FIN MODE « EN PRÉPARATION » ===== -->
 <meta name="theme-color" content="#000000">
 <title>Jaipur — Restaurant indien &amp; Snack bar à Brazzaville</title>
 <meta name="description" content="Jaipur, restaurant indien et européen à Brazzaville : plats indiens, pizzas, cocktails et snacks. Avenue Denis Sassou N&#39;Guesso, en face de Congo Télécom.">
